@@ -5,7 +5,10 @@ using UnityEngine.Events;
 
 public class Debris : MonoBehaviour
 {
-    public DebrisEvent CollisionHit = new DebrisEvent();
+    /// <summary>
+    /// This Debris Instance, the debris it has hit, the world point of the hit
+    /// </summary>
+    public DebrisHitEvent CollisionHit = new DebrisHitEvent();
 
     public Rigidbody2D rb { get; private set; }
     private bool attached = false;
@@ -14,29 +17,49 @@ public class Debris : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.Sleep();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.collider.CompareTag("Debris"))
+        for(int i = 0; i < collision.contactCount; i++)
         {
-            CollisionHit.Invoke(this, collision.gameObject.GetComponent<Debris>());
+            if(collision.contacts[i].collider.gameObject.CompareTag("Debris"))
+            {
+                CollisionHit.Invoke(this, collision.gameObject.GetComponent<Debris>(), collision.contacts[i].point);
+                break;
+            }
         }
     }
 
-    public void Attach(Rigidbody2D otherRB)
+    public void Attach(Rigidbody2D otherRB, Vector2 hitPoint)
     {
+        if(attached)
+        {
+            return;
+        }
+
         attachedJoint = gameObject.AddComponent<FixedJoint2D>();
         attachedJoint.connectedBody = otherRB;
         attached = true;
+
+        hitPoint = transform.InverseTransformPoint(hitPoint);
+        attachedJoint.anchor = hitPoint;
+        attachedJoint.breakForce = 1000f;
+        attachedJoint.breakTorque = 1000f;
     }
 
     public void Detach()
     {
+        if(!attached)
+        {
+            return;
+        }
+
         attachedJoint.enabled = false;
         Destroy(attachedJoint);
         attached = false;
     }
 
-    public class DebrisEvent : UnityEvent<Debris, Debris> { }
+    public class DebrisHitEvent : UnityEvent<Debris, Debris, Vector2> { }
 }

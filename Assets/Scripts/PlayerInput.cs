@@ -5,10 +5,13 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     [SerializeField]
-    private float forceAmount;
+    private float forceAmount = 1f;
+    [SerializeField]
+    private float torqueAmount = 1f;
     public Rigidbody2D rb { get; private set; }
 
-    private List<Debris> attachedDebris = new List<Debris>();
+    //private List<Debris> attachedDebris = new List<Debris>();
+    private Dictionary<int, Debris> connectedDebris = new Dictionary<int, Debris>();
 
     private void Start()
     {
@@ -25,6 +28,10 @@ public class PlayerInput : MonoBehaviour
 
         rb.AddForce(force);
 
+        float r = Input.GetAxis("Rotate");
+
+        rb.AddTorque(-r * torqueAmount);
+
         if(Input.GetKeyDown(KeyCode.Space))
         {
             DetachAllDebris();
@@ -33,30 +40,34 @@ public class PlayerInput : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.collider.CompareTag("Debris"))
+        for(int i = 0; i < collision.contactCount; i++)
         {
-            var newDebris = collision.gameObject.GetComponent<Debris>();
-            if(!attachedDebris.Contains(newDebris))
+            if(collision.contacts[i].collider.gameObject.CompareTag("Debris"))
             {
-                AttachDebrisToPlayer(newDebris);
+                var newDebris = collision.contacts[i].collider.gameObject.GetComponent<Debris>();
+                if (!connectedDebris.ContainsKey(newDebris.GetInstanceID()))
+                {
+                    AttachDebrisToPlayer(newDebris, collision.contacts[i].point);
+                    break;
+                }
             }
         }
     }
 
-    void AttachDebrisToPlayer(Debris newDebris)
+    void AttachDebrisToPlayer(Debris newDebris, Vector2 hitPoint)
     {
-        newDebris.Attach(rb);
-        attachedDebris.Add(newDebris);
+        newDebris.Attach(rb, hitPoint);
+        connectedDebris.Add(newDebris.GetInstanceID(), newDebris);
 
         newDebris.CollisionHit.AddListener(OnDebrisCollision);
     }
 
-    void AttachDebrisToDebris(Debris attachedDebris, Debris hitDebris)
+    void AttachDebrisToDebris(Debris attachedDebris, Debris hitDebris, Vector2 hitPoint)
     {
         //Tell the already hit debris to create a joint to the already attached debris
-        hitDebris.Attach(attachedDebris.rb);
+        hitDebris.Attach(attachedDebris.rb, hitPoint);
         //Add new Debris to list
-        this.attachedDebris.Add(attachedDebris);
+        connectedDebris.Add(hitDebris.GetInstanceID(), hitDebris);
 
         hitDebris.CollisionHit.AddListener(OnDebrisCollision);
 
@@ -64,20 +75,20 @@ public class PlayerInput : MonoBehaviour
 
     private void DetachAllDebris()
     {
-        for(int i = 0; i < attachedDebris.Count; i++)
+        foreach(KeyValuePair<int, Debris> element in connectedDebris)
         {
-            attachedDebris[i].Detach();
-            attachedDebris[i].CollisionHit.RemoveListener(OnDebrisCollision);
+            element.Value.Detach();
+            element.Value.CollisionHit.RemoveListener(OnDebrisCollision);
         }
 
-        attachedDebris.Clear();
+        connectedDebris.Clear();
     }
 
-    private void OnDebrisCollision(Debris attachedDebris, Debris hitDebris)
+    private void OnDebrisCollision(Debris attachedDebris, Debris hitDebris, Vector2 hitPoint)
     {
-        if(!this.attachedDebris.Contains(hitDebris))
+        if(!connectedDebris.ContainsKey(hitDebris.GetInstanceID()))
         {
-            AttachDebrisToDebris(attachedDebris, hitDebris);
+            AttachDebrisToDebris(attachedDebris, hitDebris, hitPoint);
         }
     }
 }
