@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Pickup : MonoBehaviour
 {
+    enum Type{
+        Fuel
+    }
+    public Type type= 0;
     public int MagnitudeDefined = 100;
     // Start is called before the first frame update
     void Start()
@@ -20,7 +24,15 @@ public class Pickup : MonoBehaviour
     }
 
     void PickUpAction(int Magnitude){
-        //code here
-        //Debug.Log(@"I've been picked up");
+        switch (type){
+        case Type.Fuel():
+            //code here
+            //Debug.Log(@"adds fuel: "+ Magnitude);    
+            break;
+        default:
+            Debug.Log(@"I don't have an coded attached"+ type);
+            break;
+        }
+        
     }
 }
