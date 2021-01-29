@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Pickup : MonoBehaviour
 {
-    enum Type{
+    public enum Type{
         Fuel
     }
     public Type type= 0;
@@ -25,7 +25,7 @@ public class Pickup : MonoBehaviour
 
     void PickUpAction(int Magnitude){
         switch (type){
-        case Type.Fuel():
+        case Type.Fuel:
             //code here
             //Debug.Log(@"adds fuel: "+ Magnitude);    
             break;
