@@ -160,6 +160,7 @@ GameObject:
   - component: {fileID: 5090662899271197932}
   - component: {fileID: 1208596316907442634}
   - component: {fileID: 133915478}
+  - component: {fileID: 1478270164122761538}
   m_Layer: 5
   m_Name: JerryBox
   m_TagString: Untagged
@@ -211,13 +212,26 @@ Animation:
   m_GameObject: {fileID: 2222771456695648153}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 11284135f04b0144ba8d8ed3695bba06, type: 2}
+  m_Animation: {fileID: 0}
   m_Animations:
   - {fileID: 7400000, guid: 11284135f04b0144ba8d8ed3695bba06, type: 2}
+  - {fileID: 7400000, guid: 4aee29edf1fbadc45bce5ac0bb6fbdf6, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &1478270164122761538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2222771456695648153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4efc312e3959c7647bb709bacec029cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3412657184358920665
 GameObject:
   m_ObjectHideFlags: 0
