@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7734874408337248532}
   - component: {fileID: 7734874408337248528}
   - component: {fileID: -856495184428189910}
+  - component: {fileID: 2888307218158103338}
   m_Layer: 0
   m_Name: Debris
   m_TagString: Debris
@@ -158,3 +159,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91835a9d9838b2b4baf8bed82653db84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: d59aab99ba43dd4448b28e87101b19cb, type: 3}
+  - {fileID: 21300000, guid: db5a9d807c0498a4a92eebb31c727b47, type: 3}
+  - {fileID: 21300000, guid: 486b881314006e441b7b12a1234cd2b1, type: 3}
+  - {fileID: 21300000, guid: 2238a0bd37aaccc43a4e68e63a703118, type: 3}
+--- !u!114 &2888307218158103338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7734874408337248533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b78023d53d68c134fba57155ab4afaec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  customThrust: 1
