@@ -52,6 +52,11 @@ public class PlayerInput : MonoBehaviour
 
     private bool allowDebris = true;
 
+    public Dictionary<int, Debris> GetConnectedDebris()
+    {
+        return connectedDebris;
+    }
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
