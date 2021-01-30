@@ -39,6 +39,8 @@ public class Debris : MonoBehaviour
             return;
         }
 
+        rb.velocity = Vector2.zero;
+
         attachedJoint = gameObject.AddComponent<FixedJoint2D>();
         attachedJoint.connectedBody = otherRB;
         attached = true;
