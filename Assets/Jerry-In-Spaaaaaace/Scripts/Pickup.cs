@@ -8,6 +8,8 @@ public class Pickup : MonoBehaviour
         Fuel
     }
     public Type type= 0;
+    private SpriteRenderer spriteR;
+    public Sprite fuelSprite;
     public int MagnitudeDefined = 100;
     // Start is called before the first frame update
     void Start()
@@ -26,9 +28,11 @@ public class Pickup : MonoBehaviour
     void PickUpAction(int Magnitude){
         switch (type){
         case Type.Fuel:
+            spriteR = gameObject.GetComponent<SpriteRenderer>();
+                spriteR.sprite = fuelSprite;
             //code here
             //Debug.Log(@"adds fuel: "+ Magnitude);    
-            break;
+                break;
         default:
             Debug.Log(@"I don't have an coded attached"+ type);
             break;

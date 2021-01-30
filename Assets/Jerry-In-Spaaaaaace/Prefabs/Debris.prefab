@@ -162,18 +162,32 @@ MonoBehaviour:
   spriteChance:
   - sprite: {fileID: 21300000, guid: 4e07f6f66cc29e34895691784c3e9818, type: 3}
     weighting: 20
+    minScale: 0.1
+    maxScale: 0.4
   - sprite: {fileID: 21300000, guid: 9a4e32908c6d1694ca2116b59e7f755f, type: 3}
     weighting: 1
+    minScale: 0.2
+    maxScale: 0.2
   - sprite: {fileID: 21300000, guid: 9bd6f891c5d4e59469b097fd3cf7be99, type: 3}
     weighting: 1
+    minScale: 0.1
+    maxScale: 0.1
   - sprite: {fileID: 21300000, guid: 05e5dd2c76cf73c4d878d707e9d09dfd, type: 3}
     weighting: 10
+    minScale: 0.1
+    maxScale: 0.5
   - sprite: {fileID: 21300000, guid: 95be84896b624ef4cac3a8c2c6ac2d5f, type: 3}
     weighting: 10
+    minScale: 0.1
+    maxScale: 0.4
   - sprite: {fileID: 21300000, guid: 8f64c3de2bd6e86478ffe41fe9963dc8, type: 3}
     weighting: 5
+    minScale: 0.1
+    maxScale: 0.4
   - sprite: {fileID: 21300000, guid: 8ab7223ee6604604c95d432ca42c5119, type: 3}
     weighting: 10
+    minScale: 0.1
+    maxScale: 0.4
 --- !u!114 &2888307218158103338
 MonoBehaviour:
   m_ObjectHideFlags: 0
