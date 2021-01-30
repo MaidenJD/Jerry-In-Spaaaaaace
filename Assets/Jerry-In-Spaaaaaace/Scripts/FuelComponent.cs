@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Jerry.Utilities;
+using UnityEngine.Events;
 
 namespace Jerry
 {
@@ -20,6 +21,8 @@ namespace Jerry
             
             [SerializeField]
             private float FuelCap      = 100f;
+
+            public UnityEvent OnFuelDepleted = new UnityEvent();
 
             private Slider FuelGauge;
             private PlayerInput Ship;

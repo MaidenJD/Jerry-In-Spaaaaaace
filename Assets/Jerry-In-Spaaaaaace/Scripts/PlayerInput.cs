@@ -10,7 +10,6 @@ using Jerry.Components;
 using UnityEditor;
 #endif
 
-[RequireComponent(typeof(FuelComponent))]
 public class PlayerInput : MonoBehaviour
 {
     [SerializeField]
