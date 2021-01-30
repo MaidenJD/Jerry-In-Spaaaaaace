@@ -16037,7 +16037,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   followTrans: {fileID: 97913775}
   gameCamera: {fileID: 0}
-  ZoomSpeed: 2
+  ZoomSpeed: 5
 --- !u!4 &1211259304 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7734874408337248529, guid: a217d3106b0ff424cacfac52764a8178,
