@@ -160,19 +160,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteChance:
-  - sprite: {fileID: 21300000, guid: d59aab99ba43dd4448b28e87101b19cb, type: 3}
+  - sprite: {fileID: 21300000, guid: 4e07f6f66cc29e34895691784c3e9818, type: 3}
     weighting: 20
-  - sprite: {fileID: 21300000, guid: db5a9d807c0498a4a92eebb31c727b47, type: 3}
+  - sprite: {fileID: 21300000, guid: 9a4e32908c6d1694ca2116b59e7f755f, type: 3}
     weighting: 1
-  - sprite: {fileID: 21300000, guid: 486b881314006e441b7b12a1234cd2b1, type: 3}
+  - sprite: {fileID: 21300000, guid: 9bd6f891c5d4e59469b097fd3cf7be99, type: 3}
     weighting: 1
-  - sprite: {fileID: 21300000, guid: 2238a0bd37aaccc43a4e68e63a703118, type: 3}
+  - sprite: {fileID: 21300000, guid: 05e5dd2c76cf73c4d878d707e9d09dfd, type: 3}
     weighting: 10
-  - sprite: {fileID: 21300000, guid: d816ea8dffaeac94e817f0c706653750, type: 3}
+  - sprite: {fileID: 21300000, guid: 95be84896b624ef4cac3a8c2c6ac2d5f, type: 3}
     weighting: 10
-  - sprite: {fileID: 21300000, guid: b96e02c54232a834c8bf9778caff3025, type: 3}
+  - sprite: {fileID: 21300000, guid: 8f64c3de2bd6e86478ffe41fe9963dc8, type: 3}
     weighting: 5
-  - sprite: {fileID: 21300000, guid: 95cbbc929b386c84898d20bc248ee36b, type: 3}
+  - sprite: {fileID: 21300000, guid: 8ab7223ee6604604c95d432ca42c5119, type: 3}
     weighting: 10
 --- !u!114 &2888307218158103338
 MonoBehaviour:

@@ -38560,8 +38560,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forceAmount: 1
   torqueAmount: 1
-  StartingFuelAmount: 1000
-  bNeedFuel: 1
   AllThrusters:
   - {fileID: 2100760055}
   - {fileID: 1225496953}
