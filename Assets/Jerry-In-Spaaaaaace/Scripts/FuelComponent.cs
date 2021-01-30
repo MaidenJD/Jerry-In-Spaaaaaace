@@ -7,7 +7,6 @@ namespace Jerry
 {
     namespace Components
     {
-        [DisallowMultipleComponent]
         public class FuelComponent : MonoBehaviour
         {
             [Header("Runtime")]
