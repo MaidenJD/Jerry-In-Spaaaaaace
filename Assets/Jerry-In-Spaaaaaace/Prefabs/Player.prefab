@@ -38539,7 +38539,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 4
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 1
@@ -38562,15 +38562,14 @@ MonoBehaviour:
   torqueAmount: 1
   StartingFuelAmount: 1000
   bNeedFuel: 1
-  DirectionalThrusters:
+  AllThrusters:
   - {fileID: 2100760055}
   - {fileID: 1225496953}
   - {fileID: 683787908}
   - {fileID: 1463776531}
   - {fileID: 200087189}
   - {fileID: 919101401}
-  ClockwiseThrusters: []
-  AnticlockwiseThrusters: []
+  CurrentThrusterState: 
   OutOfFuel:
     m_PersistentCalls:
       m_Calls: []
