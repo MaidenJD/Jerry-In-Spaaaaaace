@@ -6,7 +6,7 @@ TagManager:
   tags:
   - Debris
   - PickUp
-  - Wall
+  - HUD
   layers:
   - Default
   - TransparentFX
