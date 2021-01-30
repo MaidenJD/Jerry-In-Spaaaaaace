@@ -49,6 +49,22 @@ public class @SpaceControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""AdjustForce"",
+                    ""type"": ""Value"",
+                    ""id"": ""0d9ee31c-7311-48b7-83d1-87246636579e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""AdjustTorque"",
+                    ""type"": ""Button"",
+                    ""id"": ""26eaab0d-9d14-4948-84ca-ed42c477d748"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -238,6 +254,138 @@ public class @SpaceControls : IInputActionCollection, IDisposable
                     ""action"": ""Zoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Controller"",
+                    ""id"": ""fd2810e1-2890-4a8d-be72-6f883729cfad"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AdjustForce"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""3dd37833-1247-4950-9950-704a13ca15c2"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""AdjustForce"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""bd8b6302-7e14-419c-9b84-495978ccb22f"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""AdjustForce"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Keyboard"",
+                    ""id"": ""d0708a33-92f4-49ad-9ad0-1856dd9fd07b"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AdjustForce"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""553a3acf-3687-4296-a9e5-780f77b985da"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""AdjustForce"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""033aa0d8-fe50-4b94-a0ba-3f61da222a90"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""AdjustForce"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Controller"",
+                    ""id"": ""5925ae43-5ee5-44de-b70f-65d31aeda5a3"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AdjustTorque"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""4f565efb-c41a-4661-88fa-0f1247b23847"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""AdjustTorque"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""4245720a-b228-4add-ad79-939f009a943f"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""AdjustTorque"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Keyboard"",
+                    ""id"": ""f287ca6f-123b-46a9-92ce-78d1c20f1ac1"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AdjustTorque"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""df647356-e8fb-459b-8f33-d7cc6011a992"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""AdjustTorque"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""2cd75fec-1cfc-4697-b509-03520e805e17"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""AdjustTorque"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -784,6 +932,8 @@ public class @SpaceControls : IInputActionCollection, IDisposable
         m_Gameplay_Rotate = m_Gameplay.FindAction("Rotate", throwIfNotFound: true);
         m_Gameplay_Break = m_Gameplay.FindAction("Break", throwIfNotFound: true);
         m_Gameplay_Zoom = m_Gameplay.FindAction("Zoom", throwIfNotFound: true);
+        m_Gameplay_AdjustForce = m_Gameplay.FindAction("AdjustForce", throwIfNotFound: true);
+        m_Gameplay_AdjustTorque = m_Gameplay.FindAction("AdjustTorque", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -849,6 +999,8 @@ public class @SpaceControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Rotate;
     private readonly InputAction m_Gameplay_Break;
     private readonly InputAction m_Gameplay_Zoom;
+    private readonly InputAction m_Gameplay_AdjustForce;
+    private readonly InputAction m_Gameplay_AdjustTorque;
     public struct GameplayActions
     {
         private @SpaceControls m_Wrapper;
@@ -857,6 +1009,8 @@ public class @SpaceControls : IInputActionCollection, IDisposable
         public InputAction @Rotate => m_Wrapper.m_Gameplay_Rotate;
         public InputAction @Break => m_Wrapper.m_Gameplay_Break;
         public InputAction @Zoom => m_Wrapper.m_Gameplay_Zoom;
+        public InputAction @AdjustForce => m_Wrapper.m_Gameplay_AdjustForce;
+        public InputAction @AdjustTorque => m_Wrapper.m_Gameplay_AdjustTorque;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -878,6 +1032,12 @@ public class @SpaceControls : IInputActionCollection, IDisposable
                 @Zoom.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnZoom;
                 @Zoom.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnZoom;
                 @Zoom.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnZoom;
+                @AdjustForce.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAdjustForce;
+                @AdjustForce.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAdjustForce;
+                @AdjustForce.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAdjustForce;
+                @AdjustTorque.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAdjustTorque;
+                @AdjustTorque.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAdjustTorque;
+                @AdjustTorque.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAdjustTorque;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -894,6 +1054,12 @@ public class @SpaceControls : IInputActionCollection, IDisposable
                 @Zoom.started += instance.OnZoom;
                 @Zoom.performed += instance.OnZoom;
                 @Zoom.canceled += instance.OnZoom;
+                @AdjustForce.started += instance.OnAdjustForce;
+                @AdjustForce.performed += instance.OnAdjustForce;
+                @AdjustForce.canceled += instance.OnAdjustForce;
+                @AdjustTorque.started += instance.OnAdjustTorque;
+                @AdjustTorque.performed += instance.OnAdjustTorque;
+                @AdjustTorque.canceled += instance.OnAdjustTorque;
             }
         }
     }
@@ -1027,6 +1193,8 @@ public class @SpaceControls : IInputActionCollection, IDisposable
         void OnRotate(InputAction.CallbackContext context);
         void OnBreak(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
+        void OnAdjustForce(InputAction.CallbackContext context);
+        void OnAdjustTorque(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
