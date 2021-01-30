@@ -108,11 +108,13 @@ public class PlayerInput : MonoBehaviour
         gameplayControls.Break.performed -= AttemptBreak;
     }
 
+    public bool[] ThrusterStates;
+
     private void Update()
     {
         //Reset the thruster state
         //Keep track of the Thruster that are going to be activated
-        bool[] ThrusterStates = new bool[AllThrusters.Count];
+        ThrusterStates = new bool[AllThrusters.Count];
 
 #if ENABLE_LEGACY_INPUT_MANAGER
         float h = Input.GetAxis("Horizontal");
@@ -298,7 +300,6 @@ public class PlayerInput : MonoBehaviour
             {
                 ThrusterStates[i] = activeThruster;
             }
-            
         }
     }
 
