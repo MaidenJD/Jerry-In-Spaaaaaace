@@ -435,6 +435,12 @@ public class PlayerInput : MonoBehaviour
 
         hitDebris.CollisionHit.AddListener(OnDebrisCollision);
         hitDebris.JointBroken.AddListener(OnDebrisJointBroken);
+
+        //Check if there is a thruster on this debris
+        if(hitDebris.Thruster)
+        {
+            AddThruster(hitDebris.Thruster);
+        }
     }
 
     private void DetachAllDebris()
