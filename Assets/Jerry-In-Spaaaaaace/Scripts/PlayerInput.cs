@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
+
 using Jerry;
 using Jerry.Components;
 
@@ -22,75 +24,76 @@ public class PlayerInput : MonoBehaviour
 
 
     [Header("Thrusters")]
-    public ParticleSystem[] AllThrusters;
+    public List<ParticleSystem> ShipThrusters;
 
+    /// <summary>
+    /// Information about all of the Active thrusters attached to the ship
+    /// </summary>
+    private List<ThrusterInfo> AllThrusters;
+    /// <summary>
+    /// The indexes of all direction thrusters
+    /// </summary>
     private List<int> DirectionalThrusters;
+    /// <summary>
+    /// The indexes of all Clockwise thrusters
+    /// </summary>
     private List<int> ClockwiseThrusters;
-    private List<int> AnticlockwiseThrusters; 
-    private Vector3[] DirectionalThrustersDirections;
+    /// <summary>
+    /// The indexes of all Anti-clockwise thrusters
+    /// </summary>
+    private List<int> AnticlockwiseThrusters;
+
+    private SpaceControls.GameplayActions gameplayControls;
     
-    [SerializeField] private bool[] CurrentThrusterState;
+    
     public Rigidbody2D rb { get; private set; }
 
     private Dictionary<int, Debris> connectedDebris = new Dictionary<int, Debris>();
 
     private bool allowDebris = true;
 
+    public Dictionary<int, Debris> GetConnectedDebris()
+    {
+        return connectedDebris;
+    }
+
     private void Start()
     {
-        rb   = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         Fuel = GetComponent<FuelComponent>();
 
         AssignThrusters();
     }
 
-    private void AssignThrusters()
+    private void OnEnable()
     {
-        int thrusterCount = AllThrusters.Length;
-        DirectionalThrusters = new List<int>(thrusterCount);
-        DirectionalThrustersDirections = new Vector3[thrusterCount];
-        ClockwiseThrusters = new List<int>();
-        AnticlockwiseThrusters = new List<int>();
-        CurrentThrusterState = new bool[thrusterCount];
-        
-        for (int i = 0; i < AllThrusters.Length; i++)
-        {
-            //Get the direction of the thruster and save it
-            DirectionalThrustersDirections[i] = AllThrusters[i].transform.localRotation * Vector3.up;
-            DirectionalThrusters.Add(i);
-            //Stop each thruster
-            AllThrusters[i].Stop();
+        gameplayControls = new SpaceControls().Gameplay;
+        gameplayControls.Enable();
 
+        gameplayControls.Break.performed += AttemptBreak;
+    }
 
-            //Check if this thruster can be a rotational thruster
-            Vector3 dirToThruster = AllThrusters[i].transform.localPosition;
-            float dotProd = Vector3.Dot(dirToThruster, DirectionalThrustersDirections[i]);
-            Vector3 crossProd = Vector3.Cross(dirToThruster, DirectionalThrustersDirections[i]);
-            //Debug.Log($"{AllThrusters[i].gameObject.name}: {dotProd}, cross: {crossProd}", AllThrusters[i].gameObject);
-            if (Mathf.Abs(dotProd) < 0.2f)
-            {
-                if (crossProd.z < 0f)
-                {
-                    ClockwiseThrusters.Add(i);
-                }
-                else
-                {
-                    AnticlockwiseThrusters.Add(i);
-                }
-            }
-        }
+    private void OnDisable()
+    {
+        gameplayControls.Disable();
+
+        gameplayControls.Break.performed -= AttemptBreak;
     }
 
     private void Update()
     {
         //Reset the thruster state
-        for(int i = 0; i < CurrentThrusterState.Length; i++)
-        {
-            CurrentThrusterState[i] = false;
-        }
+        //Keep track of the Thruster that are going to be activated
+        bool[] ThrusterStates = new bool[AllThrusters.Count];
 
+#if ENABLE_LEGACY_INPUT_MANAGER
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
+#elif ENABLE_INPUT_SYSTEM
+        Vector2 movement = gameplayControls.Movement.ReadValue<Vector2>();
+        float h = movement.x;
+        float v = movement.y;
+#endif
 
         Vector2 force = (transform.up * v) + (transform.right * h);
         force *= forceAmount;
@@ -107,10 +110,14 @@ public class PlayerInput : MonoBehaviour
 				
 			//Play Particle Effects
 	        Vector2 localForce = new Vector2(h, v);
-    	    PlayDirectionalThrusters(-localForce.normalized);
+    	    PlayDirectionalThrusters(-localForce.normalized, ref ThrusterStates);
         }
 
+#if ENABLE_LEGACY_INPUT_MANAGER
         float r = Input.GetAxis("Rotate");
+#elif ENABLE_INPUT_SYSTEM
+        float r = gameplayControls.Rotate.ReadValue<float>();
+#endif
         r = -r * torqueAmount;
 
         DesiredFuel        = Mathf.Abs(r) * Time.deltaTime;
@@ -125,79 +132,228 @@ public class PlayerInput : MonoBehaviour
 
             if (r > Mathf.Epsilon)
             {
-                PlayClockwiseThrusters();
+                PlayClockwiseThrusters(ref ThrusterStates);
             }
             else if (r < -Mathf.Epsilon)
             {
-                PlayAnticlockwiseThrusters();
+                PlayAnticlockwiseThrusters(ref ThrusterStates);
             }
         }
 
         //Set the Thrusters state
-        SetThrusterStates();
+        SetThrusterStates(ref ThrusterStates);
 
+#if ENABLE_LEGACY_INPUT_MANAGER
         if(Input.GetKeyDown(KeyCode.Space))
         {
             DetachAllDebris();
         }
+#endif
     }
 
-    void PlayDirectionalThrusters(Vector2 dir)
+    #region Thruster Methods
+    private void AssignThrusters()
+    {
+        int thrusterCount = ShipThrusters.Count;
+        AllThrusters = new List<ThrusterInfo>(thrusterCount);
+        DirectionalThrusters = new List<int>(thrusterCount);
+
+        ClockwiseThrusters = new List<int>();
+        AnticlockwiseThrusters = new List<int>();
+
+        //Loop through each ship thruster
+        for (int i = 0; i < thrusterCount; i++)
+        {
+            Transform thrusterTrans = ShipThrusters[i].transform;
+            //Save this thruster into all thruster array
+            AllThrusters.Add(new ThrusterInfo(ShipThrusters[i], thrusterTrans.localRotation * Vector2.up));
+            //Get the direction of the thruster and save it
+            DirectionalThrusters.Add(i);
+            //Stop each thruster
+            AllThrusters[i].thruster.Stop();
+
+
+            //Check if this thruster can be a rotational thruster
+            Vector2 dirToThruster = thrusterTrans.localPosition;
+            Vector2 thrusterDir = AllThrusters[i].Direction;
+            float dotProd = Vector2.Dot(dirToThruster, thrusterDir);
+            Vector3 crossProd = Vector3.Cross(dirToThruster, thrusterDir);
+            //Debug.Log($"{AllThrusters[i].gameObject.name}: {dotProd}, cross: {crossProd}", AllThrusters[i].gameObject);
+            if (Mathf.Abs(dotProd) < 0.2f)
+            {
+                if (crossProd.z < 0f)
+                {
+                    ClockwiseThrusters.Add(i);
+                }
+                else
+                {
+                    AnticlockwiseThrusters.Add(i);
+                }
+            }
+        }
+    }
+
+    private void AddThruster(ParticleSystem newThruster)
+    {
+        int thrusterIndex = AllThrusters.Count;
+        AllThrusters.Add(new ThrusterInfo(newThruster, transform));
+
+        DirectionalThrusters.Add(thrusterIndex);
+        //Tell this thruster to stop
+        newThruster.Stop();
+
+        //Calculate if this is a rotational thruster
+        Vector2 dirToThruster = transform.InverseTransformPoint(newThruster.transform.position);
+        Vector2 thrusterDir = AllThrusters[thrusterIndex].Direction;
+        float dotProd = Vector3.Dot(dirToThruster, thrusterDir);
+        Vector3 crossProd = Vector3.Cross(dirToThruster, thrusterDir);
+
+        if(Mathf.Abs(dotProd) < 0.2f)
+        {
+            if(crossProd.z < 0f)
+            {
+                ClockwiseThrusters.Add(thrusterIndex);
+            }
+            else
+            {
+                AnticlockwiseThrusters.Add(thrusterIndex);
+            }
+        }
+    }
+
+    private void RemoveThruster(ParticleSystem removeThruster)
+    {
+        //Find the index of thruster
+        int thrusterInstanceID = removeThruster.GetInstanceID();
+        int index = -1;
+        for(int i = 0; i < AllThrusters.Count; i++)
+        {
+            if(AllThrusters[i].InstanceID == thrusterInstanceID)
+            {
+                index = i;
+                break;
+            }
+        }
+
+        if(index == -1)
+        {
+            Debug.LogError($"Failed to remove thruster {removeThruster.gameObject.name} because it doesn't exist in array", removeThruster.gameObject);
+            return;
+        }
+
+        ClockwiseThrusters.Remove(index);
+        AnticlockwiseThrusters.Remove(index);
+        DirectionalThrusters.Remove(index);
+        AllThrusters.RemoveAt(index);
+    }
+
+    void PlayDirectionalThrusters(Vector2 dir, ref bool[] ThrusterStates)
     {
         int thrusterCount = DirectionalThrusters.Count;
         for(int i = 0; i < thrusterCount; i++)
         {
-            float dot = Vector3.Dot(DirectionalThrustersDirections[i], dir);
+            int index = DirectionalThrusters[i];
+            float dot = Vector3.Dot(AllThrusters[index].Direction, dir);
             bool activeThruster = dot > 0.707f;
 
-            if (!CurrentThrusterState[i])
+            if (!ThrusterStates[i])
             {
-                CurrentThrusterState[i] = activeThruster;
+                ThrusterStates[i] = activeThruster;
             }
             
         }
     }
 
-    void PlayClockwiseThrusters()
+    void PlayClockwiseThrusters(ref bool[] ThrusterStates)
     {
         for(int i = 0; i < ClockwiseThrusters.Count; i++)
         {
-            if(!CurrentThrusterState[ClockwiseThrusters[i]])
+            if(!ThrusterStates[ClockwiseThrusters[i]])
             {
-                CurrentThrusterState[ClockwiseThrusters[i]] = true;
+                ThrusterStates[ClockwiseThrusters[i]] = true;
             }
         }
     }
 
-    void PlayAnticlockwiseThrusters()
+    void PlayAnticlockwiseThrusters(ref bool[] ThrusterStates)
     {
         for(int i = 0; i < AnticlockwiseThrusters.Count; i++)
         {
-            if(!CurrentThrusterState[AnticlockwiseThrusters[i]])
+            if(!ThrusterStates[AnticlockwiseThrusters[i]])
             {
-                CurrentThrusterState[AnticlockwiseThrusters[i]] = true;
+                ThrusterStates[AnticlockwiseThrusters[i]] = true;
             }
         }
     }
 
-    void SetThrusterStates()
+    void SetThrusterStates(ref bool[] ThrusterStates)
     {
-        for(int i = 0; i < CurrentThrusterState.Length; i++)
+        for(int i = 0; i < ThrusterStates.Length; i++)
         {
-            if(CurrentThrusterState[i] != AllThrusters[i].isPlaying)
+            if(ThrusterStates[i] != AllThrusters[i].thruster.isPlaying)
             {
-                if(CurrentThrusterState[i])
+                if(ThrusterStates[i])
                 {
-                    AllThrusters[i].Play();
+                    AllThrusters[i].thruster.Play();
                 }
                 else
                 {
-                    AllThrusters[i].Stop();
+                    AllThrusters[i].thruster.Stop();
                 }
             }
         }
     }
 
+    public struct ThrusterInfo
+    {
+        public int InstanceID;
+        public ParticleSystem thruster;
+        public Vector2 Direction;
+
+        public ThrusterInfo(ParticleSystem ThrusterParticle, Vector2 ThrusterDirection)
+        {
+            InstanceID = ThrusterParticle.GetInstanceID();
+            thruster = ThrusterParticle;
+            Direction = ThrusterDirection;
+        }
+
+        public ThrusterInfo(ParticleSystem ThrusterParticle, Transform shipTrans)
+        {
+            InstanceID = ThrusterParticle.GetInstanceID();
+            thruster = ThrusterParticle;
+            Direction = shipTrans.InverseTransformDirection(ThrusterParticle.transform.up);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if(obj is ThrusterInfo otherThruster)
+            {
+                return this.InstanceID == otherThruster.InstanceID;
+            }
+            else
+            {
+                return base.Equals(obj);
+            }
+        }
+
+        public static bool operator ==(ThrusterInfo a, ThrusterInfo b)
+        {
+            return a.InstanceID == b.InstanceID;
+        }
+
+        public static bool operator !=(ThrusterInfo a, ThrusterInfo b)
+        {
+            return a.InstanceID != b.InstanceID;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.InstanceID;
+        }
+    }
+#endregion
+
+#region Debris
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (allowDebris)
@@ -224,6 +380,12 @@ public class PlayerInput : MonoBehaviour
 
         newDebris.CollisionHit.AddListener(OnDebrisCollision);
         newDebris.JointBroken.AddListener(OnDebrisJointBroken);
+
+        //Check if there is a thruster on this debris
+        if(newDebris.Thruster)
+        {
+            AddThruster(newDebris.Thruster);
+        }
     }
 
     void AttachDebrisToDebris(Debris attachedDebris, Debris hitDebris, Vector2 hitPoint)
@@ -244,6 +406,11 @@ public class PlayerInput : MonoBehaviour
             element.Value.Detach();
             element.Value.CollisionHit.RemoveListener(OnDebrisCollision);
             element.Value.JointBroken.RemoveListener(OnDebrisJointBroken);
+
+            if(element.Value.Thruster != null)
+            {
+                RemoveThruster(element.Value.Thruster);
+            }
         }
 
         connectedDebris.Clear();
@@ -271,6 +438,19 @@ public class PlayerInput : MonoBehaviour
         debris.CollisionHit.RemoveListener(OnDebrisCollision);
         debris.JointBroken.RemoveListener(OnDebrisJointBroken);
 
+        if(debris.Thruster != null)
+        {
+            RemoveThruster(debris.Thruster);
+        }
+
         connectedDebris.Remove(debris.GetInstanceID());
     }
+    #endregion
+
+    #region Input Methods
+    private void AttemptBreak(InputAction.CallbackContext callback)
+    {
+        DetachAllDebris();
+    }
+    #endregion
 }

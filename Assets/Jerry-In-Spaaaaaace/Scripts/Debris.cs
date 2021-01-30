@@ -12,6 +12,8 @@ public class Debris : MonoBehaviour
 
     public DebrisEvent JointBroken = new DebrisEvent();
 
+    public ParticleSystem Thruster;
+
     /// <summary>
     /// The Rigidbody of this Debris
     /// </summary>
