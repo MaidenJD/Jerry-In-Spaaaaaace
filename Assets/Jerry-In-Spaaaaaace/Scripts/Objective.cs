@@ -11,5 +11,5 @@ public enum ObjectiveType
 {
     ElonMuskCar,
     Sputnik,
-    SpaceCore
+    Lunchbox
 }

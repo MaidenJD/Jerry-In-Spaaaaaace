@@ -24,6 +24,8 @@ public class DebrisRandomiser : MonoBehaviour
 
         gameObject.transform.eulerAngles = new Vector3(0, 0, Random.Range(0, 360));
         gameObject.transform.localScale = new Vector3(scaleSize, scaleSize, scaleSize);
+
+        gameObject.AddComponent<AutoSpriteCollisionSizer>();
     }
 
 
