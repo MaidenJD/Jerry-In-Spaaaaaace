@@ -14,6 +14,8 @@ public class HUDComponent : MonoBehaviour
 
     [HideInInspector]
     private Objective Objective;
+    private float ObjectiveTimeDilation = 20;
+
 
     [HideInInspector]
     private PlayerInput Ship;
@@ -50,17 +52,17 @@ public class HUDComponent : MonoBehaviour
 
             if (bOnScreen)
             {
-                OnScreenObjective.rectTransform.position = ObjectiveScreenPos;
+                OnScreenObjective.rectTransform.position = Camera.main.ScreenToWorldPoint(ObjectiveScreenPos);
             }
             else
             {
                 Vector2 HalfSize = OffScreenObjective.GetPixelAdjustedRect().size / 2;
 
-                Vector3 Pos = new Vector3(
-                    Mathf.Clamp(ObjectiveScreenPos.x, HalfSize.x, ScreenBounds.size.x - HalfSize.x),
-                    Mathf.Clamp(ObjectiveScreenPos.y, HalfSize.y, ScreenBounds.size.y - HalfSize.y),
-                    1
-                );
+                Vector3 Pos = Camera.main.ScreenToWorldPoint(
+                    new Vector3(
+                        Mathf.Clamp(ObjectiveScreenPos.x, HalfSize.x, ScreenBounds.size.x - HalfSize.x),
+                        Mathf.Clamp(ObjectiveScreenPos.y, HalfSize.y, ScreenBounds.size.y - HalfSize.y),
+                        10));
 
                 OffScreenObjective.rectTransform.position = Pos;
 
@@ -68,7 +70,7 @@ public class HUDComponent : MonoBehaviour
 
                 float Angle = Mathf.Atan2(ShipScreenPos.y - ObjectiveScreenPos.y, ShipScreenPos.x - ObjectiveScreenPos.x) * Mathf.Rad2Deg + 90;
                 Quaternion Rot = Quaternion.Euler(Vector3.forward * Angle);
-                OffScreenObjective.rectTransform.rotation = Rot;
+                OffScreenObjective.rectTransform.rotation = Quaternion.Slerp(OffScreenObjective.rectTransform.rotation, Rot, Time.deltaTime * ObjectiveTimeDilation);
             }
         }
     }
