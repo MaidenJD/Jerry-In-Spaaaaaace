@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
+using UnityEngine.Events;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -16,6 +18,12 @@ public class PlayerInput : MonoBehaviour
     [SerializeField]
     private float StartingFuelAmount = 1000f;
     public bool bNeedFuel = true;
+
+    [Header("Thrusters")]
+    public ParticleSystem[] DirectionalThrusters;
+    public ParticleSystem[] ClockwiseThrusters;
+    public ParticleSystem[] AnticlockwiseThrusters;
+    private Vector3[] DirectionalThrustersDirections;
     public Rigidbody2D rb { get; private set; }
 
     private Dictionary<int, Debris> connectedDebris = new Dictionary<int, Debris>();
@@ -28,10 +36,19 @@ public class PlayerInput : MonoBehaviour
     /// </summary>
     public float Fuel => fuel;
 
+    public UnityEvent OutOfFuel = new UnityEvent();
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         fuel = StartingFuelAmount;
+
+        DirectionalThrustersDirections = new Vector3[DirectionalThrusters.Length];
+
+        for(int i = 0; i < DirectionalThrusters.Length; i++)
+        {
+            DirectionalThrustersDirections[i] = DirectionalThrusters[i].transform.localRotation * Vector3.up;
+        }
     }
 
     private void Update()
@@ -46,8 +63,19 @@ public class PlayerInput : MonoBehaviour
 
             rb.AddForce(force);
 
-            if(bNeedFuel)
+            //Play Particle Effects
+            Vector2 localForce = new Vector2(h, v);
+            PlayDirectionalThrusters(-localForce.normalized);
+
+            if (bNeedFuel)
+            {
                 fuel -= force.magnitude * Time.deltaTime;
+                if(fuel < 0f)
+                {
+                    OutOfFuel.Invoke();
+                    fuel = 0f;
+                }
+            }
         }
 
         if (fuel > 0f || !bNeedFuel)
@@ -56,14 +84,43 @@ public class PlayerInput : MonoBehaviour
             r = -r * torqueAmount;
             rb.AddTorque(r);
 
-            if(bNeedFuel)
+            if (bNeedFuel)
+            {
                 fuel -= Mathf.Abs(r) * Time.deltaTime;
+
+                if(fuel < 0f)
+                {
+                    OutOfFuel.Invoke();
+                    fuel = 0f;
+                }
+            }
         }
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
             DetachAllDebris();
         }
+    }
+
+    void PlayDirectionalThrusters(Vector2 dir)
+    {
+        int thrusterCount = DirectionalThrusters.Length;
+        for(int i = 0; i < thrusterCount; i++)
+        {
+            float dot = Vector3.Dot(DirectionalThrustersDirections[i], dir);
+            bool activeThruster = dot > 0.707f;
+
+            if(activeThruster && !DirectionalThrusters[i].isPlaying)
+            {
+                DirectionalThrusters[i].Play();
+            }
+            else if(!activeThruster && DirectionalThrusters[i].isPlaying)
+            {
+                DirectionalThrusters[i].Stop();
+            }
+        }
+
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -147,7 +204,6 @@ public class PlayerInput : MonoBehaviour
     public class Inspector : Editor
     {
         private PlayerInput script;
-        
 
         private void OnEnable()
         {
