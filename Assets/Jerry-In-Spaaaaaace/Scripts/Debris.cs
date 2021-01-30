@@ -10,8 +10,19 @@ public class Debris : MonoBehaviour
     /// </summary>
     public DebrisHitEvent CollisionHit = new DebrisHitEvent();
 
+    public DebrisEvent JointBroken = new DebrisEvent();
+
+    /// <summary>
+    /// The Rigidbody of this Debris
+    /// </summary>
     public Rigidbody2D rb { get; private set; }
+    /// <summary>
+    /// Is this Debris attached to something
+    /// </summary>
     private bool attached = false;
+    /// <summary>
+    /// The Joint that links this debre to the playership or another peace of debris
+    /// </summary>
     private FixedJoint2D attachedJoint = null;
 
     private void Start()
@@ -47,6 +58,12 @@ public class Debris : MonoBehaviour
         attachedJoint.anchor = hitPoint;
         attachedJoint.breakForce = 1000f;
         attachedJoint.breakTorque = 1000f;
+
+        var otherDebris = otherRB.GetComponent<Debris>();
+        if(otherDebris != null)
+        {
+            otherDebris.JointBroken.AddListener(OnAttachedDebrisBroken);
+        }
     }
 
     public void Detach()
@@ -56,10 +73,28 @@ public class Debris : MonoBehaviour
             return;
         }
 
+        var otherDebris = attachedJoint.connectedBody.GetComponent<Debris>();
+        if(otherDebris != null)
+        {
+            otherDebris.JointBroken.RemoveListener(OnAttachedDebrisBroken);
+        }
+
         attachedJoint.enabled = false;
         Destroy(attachedJoint);
         attached = false;
     }
 
+    private void OnJointBreak2D(Joint2D joint)
+    {
+        JointBroken.Invoke(this);
+    }
+
+    private void OnAttachedDebrisBroken(Debris attachedDebris)
+    {
+        JointBroken.Invoke(this);
+    }
+
     public class DebrisHitEvent : UnityEvent<Debris, Debris, Vector2> { }
+
+    public class DebrisEvent : UnityEvent<Debris> { }
 }
