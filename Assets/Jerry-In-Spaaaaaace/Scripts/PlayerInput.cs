@@ -282,6 +282,7 @@ public class PlayerInput : MonoBehaviour
         AnticlockwiseThrusters.Remove(index);
         DirectionalThrusters.Remove(index);
         AllThrusters.RemoveAt(index);
+        removeThruster.Stop();
     }
 
     void PlayDirectionalThrusters(Vector2 dir, ref bool[] ThrusterStates)
