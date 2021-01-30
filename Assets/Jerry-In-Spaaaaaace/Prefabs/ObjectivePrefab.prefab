@@ -12,11 +12,10 @@ GameObject:
   - component: {fileID: 7734874408337248530}
   - component: {fileID: 7734874408337248531}
   - component: {fileID: 7734874408337248532}
-  - component: {fileID: 7734874408337248528}
-  - component: {fileID: -856495184428189910}
-  - component: {fileID: 2888307218158103338}
+  - component: {fileID: 6185283629254544260}
+  - component: {fileID: -6073792965742433907}
   m_Layer: 0
-  m_Name: Debris
+  m_Name: ObjectivePrefab
   m_TagString: Debris
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 7734874408337248533}
   m_LocalRotation: {x: 0.019924466, y: 0.06402914, z: 0.29645607, w: 0.9526894}
   m_LocalPosition: {x: 3.21, y: 2.31, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.19999999, z: 0.2}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -135,7 +134,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &7734874408337248528
+--- !u!114 &6185283629254544260
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,10 +143,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7734874408337248533}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22508e62a7d9c4a47b4f523906d5f683, type: 3}
+  m_Script: {fileID: 11500000, guid: d907129b4e0de1940a43635df0ca222d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-856495184428189910
+  Type: 0
+--- !u!114 &-6073792965742433907
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -156,48 +156,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 7734874408337248533}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91835a9d9838b2b4baf8bed82653db84, type: 3}
+  m_Script: {fileID: 11500000, guid: 46d7e1258dcfd264ca0b2f9fbd1b468a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteChance:
-  - sprite: {fileID: 21300000, guid: 4e07f6f66cc29e34895691784c3e9818, type: 3}
-    weighting: 20
-    minScale: 0.1
-    maxScale: 0.4
-  - sprite: {fileID: 21300000, guid: 9a4e32908c6d1694ca2116b59e7f755f, type: 3}
-    weighting: 1
-    minScale: 0.2
-    maxScale: 0.2
-  - sprite: {fileID: 21300000, guid: 9bd6f891c5d4e59469b097fd3cf7be99, type: 3}
-    weighting: 1
-    minScale: 0.1
-    maxScale: 0.1
-  - sprite: {fileID: 21300000, guid: 05e5dd2c76cf73c4d878d707e9d09dfd, type: 3}
-    weighting: 10
-    minScale: 0.1
-    maxScale: 0.5
-  - sprite: {fileID: 21300000, guid: 95be84896b624ef4cac3a8c2c6ac2d5f, type: 3}
-    weighting: 10
-    minScale: 0.1
-    maxScale: 0.4
-  - sprite: {fileID: 21300000, guid: 8f64c3de2bd6e86478ffe41fe9963dc8, type: 3}
-    weighting: 5
-    minScale: 0.1
-    maxScale: 0.4
-  - sprite: {fileID: 21300000, guid: 8ab7223ee6604604c95d432ca42c5119, type: 3}
-    weighting: 10
-    minScale: 0.1
-    maxScale: 0.4
---- !u!114 &2888307218158103338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7734874408337248533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b78023d53d68c134fba57155ab4afaec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  customThrust: 1
+  carSprite: {fileID: 21300000, guid: b0c33f7e0a0afa145a68bdeba95f9d0f, type: 3}
+  sputnikSprite: {fileID: 21300000, guid: 35e57d7c51253ed43b5345781a741137, type: 3}
