@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
+
 using Jerry;
 using Jerry.Components;
 
@@ -39,7 +41,9 @@ public class PlayerInput : MonoBehaviour
     /// <summary>
     /// The indexes of all Anti-clockwise thrusters
     /// </summary>
-    private List<int> AnticlockwiseThrusters; 
+    private List<int> AnticlockwiseThrusters;
+
+    private SpaceControls.GameplayActions gameplayControls;
     
     
     public Rigidbody2D rb { get; private set; }
@@ -56,14 +60,35 @@ public class PlayerInput : MonoBehaviour
         AssignThrusters();
     }
 
+    private void OnEnable()
+    {
+        gameplayControls = new SpaceControls().Gameplay;
+        gameplayControls.Enable();
+
+        gameplayControls.Break.performed += AttemptBreak;
+    }
+
+    private void OnDisable()
+    {
+        gameplayControls.Disable();
+
+        gameplayControls.Break.performed -= AttemptBreak;
+    }
+
     private void Update()
     {
         //Reset the thruster state
         //Keep track of the Thruster that are going to be activated
         bool[] ThrusterStates = new bool[AllThrusters.Count];
 
+#if ENABLE_LEGACY_INPUT_MANAGER
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
+#elif ENABLE_INPUT_SYSTEM
+        Vector2 movement = gameplayControls.Movement.ReadValue<Vector2>();
+        float h = movement.x;
+        float v = movement.y;
+#endif
 
         Vector2 force = (transform.up * v) + (transform.right * h);
         force *= forceAmount;
@@ -83,7 +108,11 @@ public class PlayerInput : MonoBehaviour
     	    PlayDirectionalThrusters(-localForce.normalized, ref ThrusterStates);
         }
 
+#if ENABLE_LEGACY_INPUT_MANAGER
         float r = Input.GetAxis("Rotate");
+#elif ENABLE_INPUT_SYSTEM
+        float r = gameplayControls.Rotate.ReadValue<float>();
+#endif
         r = -r * torqueAmount;
 
         DesiredFuel        = Mathf.Abs(r) * Time.deltaTime;
@@ -109,10 +138,12 @@ public class PlayerInput : MonoBehaviour
         //Set the Thrusters state
         SetThrusterStates(ref ThrusterStates);
 
+#if ENABLE_LEGACY_INPUT_MANAGER
         if(Input.GetKeyDown(KeyCode.Space))
         {
             DetachAllDebris();
         }
+#endif
     }
 
     #region Thruster Methods
@@ -315,9 +346,9 @@ public class PlayerInput : MonoBehaviour
             return this.InstanceID;
         }
     }
-    #endregion
+#endregion
 
-    #region Debris
+#region Debris
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (allowDebris)
@@ -408,6 +439,13 @@ public class PlayerInput : MonoBehaviour
         }
 
         connectedDebris.Remove(debris.GetInstanceID());
+    }
+    #endregion
+
+    #region Input Methods
+    private void AttemptBreak(InputAction.CallbackContext callback)
+    {
+        DetachAllDebris();
     }
     #endregion
 }

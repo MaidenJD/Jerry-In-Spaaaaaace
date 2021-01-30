@@ -14,4 +14,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Jerry-In-Spaaaaaace/Scenes/LevelOne.unity
     guid: 1e47b28b0e41a004f8da6382b0c15c22
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 6962dddee6bcc474eababfde3cd677dd,
+      type: 2}

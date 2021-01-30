@@ -55758,6 +55758,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4195119074017725140, guid: 88633743a0ec0af4eb49a7a863051e45,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8581462172553063423, guid: 88633743a0ec0af4eb49a7a863051e45,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -55768,20 +55773,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8581462173107339491, guid: 88633743a0ec0af4eb49a7a863051e45,
-        type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 8581462173670335529, guid: 88633743a0ec0af4eb49a7a863051e45,
         type: 3}
       propertyPath: m_Name
       value: UI
-      objectReference: {fileID: 0}
-    - target: {fileID: 8581462173670335529, guid: 88633743a0ec0af4eb49a7a863051e45,
-        type: 3}
-      propertyPath: m_Layer
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8581462173670335530, guid: 88633743a0ec0af4eb49a7a863051e45,
         type: 3}
