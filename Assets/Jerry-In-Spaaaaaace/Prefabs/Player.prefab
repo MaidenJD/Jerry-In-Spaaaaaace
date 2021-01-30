@@ -38561,17 +38561,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forceAmount: 1
   torqueAmount: 1
-  AllThrusters:
+  ShipThrusters:
   - {fileID: 2100760055}
   - {fileID: 1225496953}
   - {fileID: 683787908}
   - {fileID: 1463776531}
   - {fileID: 200087189}
   - {fileID: 919101401}
-  CurrentThrusterState: 
-  OutOfFuel:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!60 &1950826863725809505
 PolygonCollider2D:
   m_ObjectHideFlags: 0
