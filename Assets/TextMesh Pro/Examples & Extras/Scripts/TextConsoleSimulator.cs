@@ -17,7 +17,6 @@ namespace TMPro.Examples
 
         void Start()
         {
-            StartCoroutine(RevealCharacters(m_TextComponent));
             //StartCoroutine(RevealWords(m_TextComponent));
         }
 
@@ -26,11 +25,13 @@ namespace TMPro.Examples
         {
             // Subscribe to event fired when text object has been regenerated.
             TMPro_EventManager.TEXT_CHANGED_EVENT.Add(ON_TEXT_CHANGED);
+            StartCoroutine(RevealCharacters(m_TextComponent));
         }
 
         void OnDisable()
         {
             TMPro_EventManager.TEXT_CHANGED_EVENT.Remove(ON_TEXT_CHANGED);
+            StopCoroutine(RevealCharacters(m_TextComponent));
         }
 
 
@@ -71,7 +72,7 @@ namespace TMPro.Examples
 
                 visibleCount += 1;
 
-                yield return null;
+                yield return new WaitForSeconds(0.025f);
             }
         }
 
