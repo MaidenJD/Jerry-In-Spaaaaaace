@@ -66,7 +66,7 @@ public class PlayerInput : MonoBehaviour
             Vector3 dirToThruster = AllThrusters[i].transform.localPosition;
             float dotProd = Vector3.Dot(dirToThruster, DirectionalThrustersDirections[i]);
             Vector3 crossProd = Vector3.Cross(dirToThruster, DirectionalThrustersDirections[i]);
-            Debug.Log($"{AllThrusters[i].gameObject.name}: {dotProd}, cross: {crossProd}", AllThrusters[i].gameObject);
+            //Debug.Log($"{AllThrusters[i].gameObject.name}: {dotProd}, cross: {crossProd}", AllThrusters[i].gameObject);
             if (Mathf.Abs(dotProd) < 0.2f)
             {
                 if (crossProd.z < 0f)
@@ -89,54 +89,47 @@ public class PlayerInput : MonoBehaviour
             CurrentThrusterState[i] = false;
         }
 
-        //if (fuel > 0f || !bNeedFuel)
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+
+        Vector2 force = (transform.up * v) + (transform.right * h);
+        force *= forceAmount;
+
+        float DesiredFuel        = force.magnitude * Time.deltaTime;
+        float FuelUsed           = Fuel.RequestFuel(DesiredFuel);
+
+        if (FuelUsed > 0)
         {
-            float h = Input.GetAxis("Horizontal");
-            float v = Input.GetAxis("Vertical");
+            float NormalizedFuelUsed = FuelUsed / DesiredFuel;
+            force *= NormalizedFuelUsed;
 
-            Vector2 force = (transform.up * v) + (transform.right * h);
-            force *= forceAmount;
-
-            float DesiredFuel        = force.magnitude * Time.deltaTime;
-            float FuelUsed           = Fuel.RequestFuel(DesiredFuel);
-
-            if (FuelUsed > 0)
-            {
-                float NormalizedFuelUsed = FuelUsed / DesiredFuel;
-                force *= NormalizedFuelUsed;
-
-                rb.AddForce(force);
+            rb.AddForce(force);
 				
-				//Play Particle Effects
-	            Vector2 localForce = new Vector2(h, v);
-    	        PlayDirectionalThrusters(-localForce.normalized);
-            }
-
+			//Play Particle Effects
+	        Vector2 localForce = new Vector2(h, v);
+    	    PlayDirectionalThrusters(-localForce.normalized);
         }
 
-        {
-            float r = Input.GetAxis("Rotate");
-            r = -r * torqueAmount;
+        float r = Input.GetAxis("Rotate");
+        r = -r * torqueAmount;
 
-            if(r > Mathf.Epsilon)
+        DesiredFuel        = Mathf.Abs(r) * Time.deltaTime;
+        FuelUsed           = Fuel.RequestFuel(DesiredFuel);
+
+        if (FuelUsed > 0)
+        {
+            float NormalizedFuelUsed = FuelUsed / DesiredFuel;
+            r *= NormalizedFuelUsed;
+
+            rb.AddTorque(r);
+
+            if (r > Mathf.Epsilon)
             {
                 PlayClockwiseThrusters();
             }
-            else if(r < -Mathf.Epsilon)
+            else if (r < -Mathf.Epsilon)
             {
                 PlayAnticlockwiseThrusters();
-            }
-
-            //if (bNeedFuel)
-            float DesiredFuel        = Mathf.Abs(r) * Time.deltaTime;
-            float FuelUsed           = Fuel.RequestFuel(DesiredFuel);
-
-            if (FuelUsed > 0)
-            {
-                float NormalizedFuelUsed = FuelUsed / DesiredFuel;
-                r *= NormalizedFuelUsed;
-
-                rb.AddTorque(r);
             }
         }
 
