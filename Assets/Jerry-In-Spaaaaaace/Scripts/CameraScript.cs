@@ -35,13 +35,6 @@ public class CameraScript : MonoBehaviour
     }
 #endif
 
-    private void Update()
-    {
-        float scroll = zoomAction.ReadValue<float>();
-        if(Mathf.Abs(scroll) > Mathf.Epsilon)
-            Debug.Log($"Scroll: {scroll}");
-    }
-
     // Update is called once per frame
     void LateUpdate()
     {
