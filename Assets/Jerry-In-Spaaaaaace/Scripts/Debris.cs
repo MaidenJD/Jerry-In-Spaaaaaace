@@ -27,6 +27,11 @@ public class Debris : MonoBehaviour
     /// </summary>
     private FixedJoint2D attachedJoint = null;
 
+    /// <summary>
+    /// How far down the chain is this peace of debris
+    /// </summary>
+    public int chainCount = -1;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -52,6 +57,19 @@ public class Debris : MonoBehaviour
             return;
         }
 
+        var otherDebris = otherRB.GetComponent<Debris>();
+        if (otherDebris != null)
+        {
+            otherDebris.JointBroken.AddListener(OnAttachedDebrisBroken);
+
+            chainCount = otherDebris.chainCount + 1;
+        }
+        else
+        {
+            //We are attaching to the ship
+            chainCount = 1;
+        }
+
         rb.velocity = Vector2.zero;
 
         attachedJoint = gameObject.AddComponent<FixedJoint2D>();
@@ -60,14 +78,8 @@ public class Debris : MonoBehaviour
 
         hitPoint = transform.InverseTransformPoint(hitPoint);
         attachedJoint.anchor = hitPoint;
-        attachedJoint.breakForce = 1000f;
-        attachedJoint.breakTorque = 1000f;
-
-        var otherDebris = otherRB.GetComponent<Debris>();
-        if(otherDebris != null)
-        {
-            otherDebris.JointBroken.AddListener(OnAttachedDebrisBroken);
-        }
+        attachedJoint.breakForce = 100f / chainCount;
+        attachedJoint.breakTorque = 100f / chainCount;
     }
 
     public void Detach()
@@ -86,6 +98,7 @@ public class Debris : MonoBehaviour
         attachedJoint.enabled = false;
         Destroy(attachedJoint);
         attached = false;
+        chainCount = -1;
     }
 
     private void OnJointBreak2D(Joint2D joint)
