@@ -8,6 +8,7 @@ public class ObjectiveSpriteSelector : MonoBehaviour
     private SpriteRenderer spriteR;
     public Sprite carSprite;
     public Sprite sputnikSprite;
+    public Sprite lunchboxSprite;
 
     // Start is called before the first frame update
     void Start()
@@ -23,10 +24,15 @@ public class ObjectiveSpriteSelector : MonoBehaviour
             case ObjectiveType.Sputnik:
                 spriteR.sprite = sputnikSprite;
                 break;
+            case ObjectiveType.Lunchbox:
+                spriteR.sprite = lunchboxSprite;
+                break;
             default:
                 Debug.Log(@"No Objective sprite for " + objRef.Type);
                 break;
         }
+
+        gameObject.AddComponent<AutoSpriteCollisionSizer>();
     }
 
     // Update is called once per frame

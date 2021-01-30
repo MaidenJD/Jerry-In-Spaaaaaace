@@ -13,6 +13,9 @@ public class CameraScript : MonoBehaviour
 #if ENABLE_INPUT_SYSTEM
     private InputAction zoomAction;
 #endif
+
+    public float ZoomSpeed = 100;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,15 +41,22 @@ public class CameraScript : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        transform.position = followTrans.position + (Vector3.forward * -10f);
 #if ENABLE_INPUT_SYSTEM
         float scroll = zoomAction.ReadValue<float>();
 #else
         float scroll = Input.mouseScrollDelta.y;
 #endif
-        if (Mathf.Abs(scroll) > Mathf.Epsilon)
+
+        Vector3 Pos = followTrans.position;
+        Pos.z = transform.position.z;
+
+        if (Mathf.Abs(scroll) > float.Epsilon)
         {
-            gameCamera.orthographicSize += -scroll * gameCamera.orthographicSize * 0.1f; 
+            float ZoomOffset = scroll * ZoomSpeed;
+            Pos.z += ZoomOffset;
+            Pos.z = Mathf.Clamp(Pos.z, -100, -10);
         }
+
+        transform.position = Pos;
     }
 }
