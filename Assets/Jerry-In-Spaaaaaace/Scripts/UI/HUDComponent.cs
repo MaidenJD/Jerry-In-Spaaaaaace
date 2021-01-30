@@ -55,11 +55,6 @@ public class HUDComponent : MonoBehaviour
             else
             {
                 Vector2 HalfSize = OffScreenObjective.GetPixelAdjustedRect().size / 2;
-                //ScreenBounds.Expand(-HalfSize);
-
-                Debug.Log($"ObjectiveSreenPos: {ObjectiveScreenPos}");
-                Debug.Log($"HalfSize:          {HalfSize}");
-                Debug.Log($"ScreenBounds.size: {ScreenBounds.size}");
 
                 Vector3 Pos = new Vector3(
                     Mathf.Clamp(ObjectiveScreenPos.x, HalfSize.x, ScreenBounds.size.x - HalfSize.x),
