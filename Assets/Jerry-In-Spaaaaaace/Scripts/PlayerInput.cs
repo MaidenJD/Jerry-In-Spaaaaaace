@@ -3,10 +3,14 @@ using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.Events;
+using Jerry;
+using Jerry.Components;
 
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+
+[RequireComponent(typeof(FuelComponent))]
 public class PlayerInput : MonoBehaviour
 {
     [SerializeField]
@@ -14,10 +18,9 @@ public class PlayerInput : MonoBehaviour
     [SerializeField]
     private float torqueAmount = 1f;
 
-    [Header("Fuel Settings")]
-    [SerializeField]
-    private float StartingFuelAmount = 1000f;
-    public bool bNeedFuel = true;
+    [HideInInspector]
+    public FuelComponent Fuel { get; private set; }
+
 
     [Header("Thrusters")]
     public ParticleSystem[] DirectionalThrusters;
@@ -30,18 +33,10 @@ public class PlayerInput : MonoBehaviour
 
     private bool allowDebris = true;
 
-    private float fuel;
-    /// <summary>
-    /// The Amount of Fuel left on the ship
-    /// </summary>
-    public float Fuel => fuel;
-
-    public UnityEvent OutOfFuel = new UnityEvent();
-
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        fuel = StartingFuelAmount;
+        rb   = GetComponent<Rigidbody2D>();
+        Fuel = GetComponent<FuelComponent>();
 
         DirectionalThrustersDirections = new Vector3[DirectionalThrusters.Length];
 
@@ -53,7 +48,6 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        if (fuel > 0f || !bNeedFuel)
         {
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
@@ -61,38 +55,36 @@ public class PlayerInput : MonoBehaviour
             Vector2 force = (transform.up * v) + (transform.right * h);
             force *= forceAmount;
 
-            rb.AddForce(force);
+            float DesiredFuel        = force.magnitude * Time.deltaTime;
+            float FuelUsed           = Fuel.RequestFuel(DesiredFuel);
 
-            //Play Particle Effects
-            Vector2 localForce = new Vector2(h, v);
-            PlayDirectionalThrusters(-localForce.normalized);
-
-            if (bNeedFuel)
+            if (FuelUsed > 0)
             {
-                fuel -= force.magnitude * Time.deltaTime;
-                if(fuel < 0f)
-                {
-                    OutOfFuel.Invoke();
-                    fuel = 0f;
-                }
+                float NormalizedFuelUsed = FuelUsed / DesiredFuel;
+                force *= NormalizedFuelUsed;
+
+                rb.AddForce(force);
+				
+				//Play Particle Effects
+	            Vector2 localForce = new Vector2(h, v);
+    	        PlayDirectionalThrusters(-localForce.normalized);
             }
+
         }
 
-        if (fuel > 0f || !bNeedFuel)
         {
             float r = Input.GetAxis("Rotate");
             r = -r * torqueAmount;
-            rb.AddTorque(r);
 
-            if (bNeedFuel)
+            float DesiredFuel        = Mathf.Abs(r) * Time.deltaTime;
+            float FuelUsed           = Fuel.RequestFuel(DesiredFuel);
+
+            if (FuelUsed > 0)
             {
-                fuel -= Mathf.Abs(r) * Time.deltaTime;
+                float NormalizedFuelUsed = FuelUsed / DesiredFuel;
+                r *= NormalizedFuelUsed;
 
-                if(fuel < 0f)
-                {
-                    OutOfFuel.Invoke();
-                    fuel = 0f;
-                }
+                rb.AddTorque(r);
             }
         }
 
@@ -198,25 +190,4 @@ public class PlayerInput : MonoBehaviour
 
         connectedDebris.Remove(debris.GetInstanceID());
     }
-
-#if UNITY_EDITOR
-    [CustomEditor(typeof(PlayerInput))]
-    public class Inspector : Editor
-    {
-        private PlayerInput script;
-
-        private void OnEnable()
-        {
-            script = (PlayerInput)target;    
-        }
-
-        public override void OnInspectorGUI()
-        {
-            base.OnInspectorGUI();
-
-            if(Application.isPlaying)
-                GUILayout.Label($"Fuel: {script.fuel}");
-        }
-    }
-#endif
 }
