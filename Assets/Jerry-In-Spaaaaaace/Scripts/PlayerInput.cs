@@ -56,6 +56,11 @@ public class PlayerInput : MonoBehaviour
         AssignThrusters();
     }
 
+    public Dictionary<int, Debris> GetConnectedDebris()
+    {
+        return connectedDebris;
+    }
+
     private void Update()
     {
         //Reset the thruster state
