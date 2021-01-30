@@ -26319,6 +26319,9 @@ MonoBehaviour:
   RemainingFuel: 0
   StartingFuel: 100
   FuelCap: 100
+  OnFuelDepleted:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &522898535
 GameObject:
   m_ObjectHideFlags: 0
