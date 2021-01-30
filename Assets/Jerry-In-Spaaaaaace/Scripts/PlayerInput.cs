@@ -14,10 +14,38 @@ using UnityEditor;
 
 public class PlayerInput : MonoBehaviour
 {
+
+    [Header("Force Throttle")]
     [SerializeField]
     private float forceAmount = 1f;
+
+    [SerializeField]
+    private float forceMin = 1f;
+
+    [SerializeField]
+    private float forceMax = 200f;
+
+    [SerializeField]
+    private float forceChangePerSecond = 50f;
+
+    [SerializeField]
+    private ThrottleUI ForceThrottle;
+
+    [Header("Torque Throttle")]
     [SerializeField]
     private float torqueAmount = 1f;
+
+    [SerializeField]
+    private float torqueMin = 1f;
+
+    [SerializeField]
+    private float torqueMax = 50f;
+
+    [SerializeField]
+    private float torqueChangePerSecond = 15f;
+
+    [SerializeField]
+    private ThrottleUI TorqueThrottle;
 
     [HideInInspector]
     public FuelComponent Fuel { get; private set; }
@@ -142,6 +170,15 @@ public class PlayerInput : MonoBehaviour
 
         //Set the Thrusters state
         SetThrusterStates(ref ThrusterStates);
+
+        //Update Throttles
+        forceAmount += forceChangePerSecond * Time.deltaTime * gameplayControls.AdjustForce.ReadValue<float>();
+        forceAmount = Mathf.Clamp(forceAmount, forceMin, forceMax);
+        ForceThrottle.SetThrottleAlpha(Mathf.InverseLerp(forceMin, forceMax, forceAmount));
+
+        torqueAmount += torqueChangePerSecond * Time.deltaTime * gameplayControls.AdjustTorque.ReadValue<float>();
+        torqueAmount = Mathf.Clamp(torqueAmount, torqueMin, torqueMax);
+        TorqueThrottle.SetThrottleAlpha(Mathf.InverseLerp(torqueMin, torqueMax, torqueAmount));
 
 #if ENABLE_LEGACY_INPUT_MANAGER
         if(Input.GetKeyDown(KeyCode.Space))
