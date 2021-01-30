@@ -145,4 +145,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c90e34c142e320439802955509f0de9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
+  fuelSprite: {fileID: 21300000, guid: 17bb13d5d550b7b479724f4b34ee4233, type: 3}
   MagnitudeDefined: 100

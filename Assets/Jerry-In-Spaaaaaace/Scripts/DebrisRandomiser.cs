@@ -15,20 +15,19 @@ public class DebrisRandomiser : MonoBehaviour
     void Start()
     {
         spriteR = gameObject.GetComponent<SpriteRenderer>();
-        spriteR.sprite = getRandomSprite();
 
-        float scaleSize = Random.Range(0.1f, 0.3f);
-        if (Random.Range(1, 10) > 9)
-        {
-            scaleSize = scaleSize * 2;
-        }
+        SpriteChance randSC = getRandomSpriteChance();
+
+        spriteR.sprite = randSC.sprite;
+
+        float scaleSize = Random.Range(randSC.minScale, randSC.maxScale);
 
         gameObject.transform.eulerAngles = new Vector3(0, 0, Random.Range(0, 360));
         gameObject.transform.localScale = new Vector3(scaleSize, scaleSize, scaleSize);
     }
 
 
-    private Sprite getRandomSprite()
+    private SpriteChance getRandomSpriteChance()
     {
         int randWeight;
         int totalRange = 0;
@@ -47,13 +46,13 @@ public class DebrisRandomiser : MonoBehaviour
             currRange = currRange + spriteChance[i].weighting;
             if (currRange > randWeight)
             {
-                return spriteChance[i].sprite;
+                return spriteChance[i];
             }
         }
 
         //error catching
         Debug.LogError("Failed to locate RandWeight in DebrisRandomiser");
-        return spriteChance[0].sprite;
+        return spriteChance[0];
 
     }
 }
@@ -63,4 +62,6 @@ public class DebrisRandomiser : MonoBehaviour
 {
     public Sprite sprite;
     public int weighting;
+    public float minScale = 0.1f;
+    public float maxScale = 0.4f;
 }

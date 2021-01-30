@@ -4485,6 +4485,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1950826863725809504, guid: 01f1081cb65ae8f48badfc7eadf589be,
+        type: 3}
+      propertyPath: AllThrusters.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1950826863725809504, guid: 01f1081cb65ae8f48badfc7eadf589be,
+        type: 3}
+      propertyPath: AllThrusters.Array.data[0]
+      value: 
+      objectReference: {fileID: 945747607}
+    - target: {fileID: 1950826863725809504, guid: 01f1081cb65ae8f48badfc7eadf589be,
+        type: 3}
+      propertyPath: AllThrusters.Array.data[1]
+      value: 
+      objectReference: {fileID: 1756489575}
+    - target: {fileID: 1950826863725809504, guid: 01f1081cb65ae8f48badfc7eadf589be,
+        type: 3}
+      propertyPath: AllThrusters.Array.data[2]
+      value: 
+      objectReference: {fileID: 1713253227}
+    - target: {fileID: 1950826863725809504, guid: 01f1081cb65ae8f48badfc7eadf589be,
+        type: 3}
+      propertyPath: AllThrusters.Array.data[3]
+      value: 
+      objectReference: {fileID: 897856563}
+    - target: {fileID: 1950826863725809504, guid: 01f1081cb65ae8f48badfc7eadf589be,
+        type: 3}
+      propertyPath: AllThrusters.Array.data[4]
+      value: 
+      objectReference: {fileID: 396512679}
+    - target: {fileID: 1950826863725809504, guid: 01f1081cb65ae8f48badfc7eadf589be,
+        type: 3}
+      propertyPath: AllThrusters.Array.data[5]
+      value: 
+      objectReference: {fileID: 2042237180}
+    - target: {fileID: 1950826863725809504, guid: 01f1081cb65ae8f48badfc7eadf589be,
+        type: 3}
+      propertyPath: DirectionalThrusters.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1950826863725809506, guid: 01f1081cb65ae8f48badfc7eadf589be,
         type: 3}
       propertyPath: m_RootOrder
@@ -9928,7 +9968,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &209479366
 Transform:
   m_ObjectHideFlags: 0
@@ -19936,6 +19976,12 @@ Transform:
   m_Father: {fileID: 209479366}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 7.69, z: 34.57}
+--- !u!198 &396512679 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 200087189, guid: 01f1081cb65ae8f48badfc7eadf589be,
+    type: 3}
+  m_PrefabInstance: {fileID: 97913774}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &398463977
 GameObject:
   m_ObjectHideFlags: 0
@@ -47126,6 +47172,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!198 &897856563 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1463776531, guid: 01f1081cb65ae8f48badfc7eadf589be,
+    type: 3}
+  m_PrefabInstance: {fileID: 97913774}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &899428506
 GameObject:
   m_ObjectHideFlags: 0
@@ -49156,6 +49208,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!198 &945747607 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2100760055, guid: 01f1081cb65ae8f48badfc7eadf589be,
+    type: 3}
+  m_PrefabInstance: {fileID: 97913774}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &948246586
 GameObject:
   m_ObjectHideFlags: 0
@@ -87218,6 +87276,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!198 &1713253227 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 683787908, guid: 01f1081cb65ae8f48badfc7eadf589be,
+    type: 3}
+  m_PrefabInstance: {fileID: 97913774}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1714115058
 GameObject:
   m_ObjectHideFlags: 0
@@ -89103,6 +89167,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!198 &1756489575 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1225496953, guid: 01f1081cb65ae8f48badfc7eadf589be,
+    type: 3}
+  m_PrefabInstance: {fileID: 97913774}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1758019299
 GameObject:
   m_ObjectHideFlags: 0
@@ -101634,6 +101704,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!198 &2042237180 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 919101401, guid: 01f1081cb65ae8f48badfc7eadf589be,
+    type: 3}
+  m_PrefabInstance: {fileID: 97913774}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2060361706
 GameObject:
   m_ObjectHideFlags: 0
