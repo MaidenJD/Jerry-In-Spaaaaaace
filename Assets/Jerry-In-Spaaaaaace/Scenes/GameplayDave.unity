@@ -13104,6 +13104,11 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5090662899271197932, guid: 88633743a0ec0af4eb49a7a863051e45,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8581462172553063423, guid: 88633743a0ec0af4eb49a7a863051e45,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -13119,6 +13124,11 @@ PrefabInstance:
       propertyPath: m_Value
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8581462173646956034, guid: 88633743a0ec0af4eb49a7a863051e45,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1207274430}
     - target: {fileID: 8581462173670335529, guid: 88633743a0ec0af4eb49a7a863051e45,
         type: 3}
       propertyPath: m_Name
@@ -15982,7 +15992,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -16027,6 +16037,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   followTrans: {fileID: 97913775}
   gameCamera: {fileID: 0}
+  ZoomSpeed: 5
 --- !u!4 &1211259304 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7734874408337248529, guid: a217d3106b0ff424cacfac52764a8178,

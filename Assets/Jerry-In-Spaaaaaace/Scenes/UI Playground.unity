@@ -105880,6 +105880,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1382961843, guid: 88633743a0ec0af4eb49a7a863051e45, type: 3}
+      propertyPath: m_text
+      value: Hi Buddy! Saw you were carrying a lot of excess baggage there, and your
+        ship seems a little hefty too. How about I use that repulsor I was talking
+        about earlier?
+      objectReference: {fileID: 0}
+    - target: {fileID: 1382961843, guid: 88633743a0ec0af4eb49a7a863051e45, type: 3}
+      propertyPath: m_fontSize
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 1382961843, guid: 88633743a0ec0af4eb49a7a863051e45, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 16777215
+      objectReference: {fileID: 0}
     - target: {fileID: 8581462172553063423, guid: 88633743a0ec0af4eb49a7a863051e45,
         type: 3}
       propertyPath: m_AnchorMax.x
