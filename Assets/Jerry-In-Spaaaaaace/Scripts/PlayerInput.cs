@@ -454,6 +454,8 @@ public class PlayerInput : MonoBehaviour
         newDebris.CollisionHit.AddListener(OnDebrisCollision);
         newDebris.JointBroken.AddListener(OnDebrisJointBroken);
 
+        newDebris.GetComponent<AudioSource>().Play();
+
         //Check if there is a thruster on this debris
         if(newDebris.Thruster)
         {
@@ -475,6 +477,8 @@ public class PlayerInput : MonoBehaviour
 
         hitDebris.CollisionHit.AddListener(OnDebrisCollision);
         hitDebris.JointBroken.AddListener(OnDebrisJointBroken);
+
+        hitDebris.GetComponent<AudioSource>().Play();
 
         //Check if there is a thruster on this debris
         if(hitDebris.Thruster)
