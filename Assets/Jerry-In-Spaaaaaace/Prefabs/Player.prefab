@@ -127,13 +127,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forceAmount: 1
   forceMin: 1
-  forceMax: 200
-  forceChangePerSecond: 50
+  forceMax: 50
+  forceChangePerSecond: 15
   ForceThrottle: {fileID: 0}
   torqueAmount: 1
   torqueMin: 1
-  torqueMax: 50
-  torqueChangePerSecond: 15
+  torqueMax: 5
+  torqueChangePerSecond: 2
   TorqueThrottle: {fileID: 0}
   ShipThrusters:
   - {fileID: 2100760055}
@@ -142,6 +142,7 @@ MonoBehaviour:
   - {fileID: 943841372409212420}
   - {fileID: 4956893968340003696}
   - {fileID: 2958544693361570731}
+  ThrusterStates: 
 --- !u!60 &1950826863725809505
 PolygonCollider2D:
   m_ObjectHideFlags: 0

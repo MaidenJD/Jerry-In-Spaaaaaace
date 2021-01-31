@@ -12,6 +12,10 @@ public class Debris : MonoBehaviour
 
     public DebrisEvent JointBroken = new DebrisEvent();
 
+    public DebrisEvent Attached = new DebrisEvent();
+
+    public DebrisEvent Detached = new DebrisEvent();
+
     public ParticleSystem Thruster;
 
     /// <summary>
@@ -80,6 +84,8 @@ public class Debris : MonoBehaviour
         attachedJoint.anchor = hitPoint;
         attachedJoint.breakForce = 100f / chainCount;
         attachedJoint.breakTorque = 100f / chainCount;
+
+        Attached.Invoke(this);
     }
 
     public void Detach()
@@ -99,6 +105,8 @@ public class Debris : MonoBehaviour
         Destroy(attachedJoint);
         attached = false;
         chainCount = -1;
+
+        Detached.Invoke(this);
     }
 
     private void OnJointBreak2D(Joint2D joint)

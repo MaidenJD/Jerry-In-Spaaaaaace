@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class SpaceStation : MonoBehaviour
 {
-    public GameManager GameManager;
+    public GameManager gameManager;
     public float RotationSpeed;
+
+    [Header("Mission Details")]
+    public Objective objective;
+    [TextArea]
+    public string StartingMessage;
 
     private Vector3 StartPosition;
     bool won = false;
@@ -13,7 +18,30 @@ public class SpaceStation : MonoBehaviour
     private void Start()
     {
         StartPosition = transform.position;
-        GameManager = FindObjectOfType<GameManager>();
+        if(!GameManager.GetGameManager(out gameManager))
+        {
+            GameManager.GameManagerLoaded += OnGameManagerLoaded;
+        }
+        else
+        {
+            StartMission();
+        }
+    }
+
+    private void OnGameManagerLoaded(GameManager newGameManager)
+    {
+        gameManager = newGameManager;
+        StartMission();
+    }
+
+    private void StartMission()
+    {
+        if (!string.IsNullOrEmpty(StartingMessage))
+        {
+            var jerryMsg = FindObjectOfType<JerryMessage>();
+
+            jerryMsg.ShowJerryMessage(StartingMessage);
+        }
     }
 
     // Update is called once per frame
@@ -36,7 +64,7 @@ public class SpaceStation : MonoBehaviour
             if (objectiveHit != null)
             {
                 won = true;
-                StartCoroutine(GameManager.WinLevel(gameObject.scene.name));
+                gameManager.WinLevel(gameObject.scene.name);
             }
         }
     }

@@ -869,16 +869,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1950826863725809504, guid: 01f1081cb65ae8f48badfc7eadf589be,
         type: 3}
-      propertyPath: forceMax
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 1950826863725809504, guid: 01f1081cb65ae8f48badfc7eadf589be,
-        type: 3}
-      propertyPath: torqueMax
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1950826863725809504, guid: 01f1081cb65ae8f48badfc7eadf589be,
-        type: 3}
       propertyPath: ForceThrottle
       value: 
       objectReference: {fileID: 911973831}
@@ -887,16 +877,6 @@ PrefabInstance:
       propertyPath: TorqueThrottle
       value: 
       objectReference: {fileID: 1926184316}
-    - target: {fileID: 1950826863725809504, guid: 01f1081cb65ae8f48badfc7eadf589be,
-        type: 3}
-      propertyPath: forceChangePerSecond
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1950826863725809504, guid: 01f1081cb65ae8f48badfc7eadf589be,
-        type: 3}
-      propertyPath: torqueChangePerSecond
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 1950826863725809506, guid: 01f1081cb65ae8f48badfc7eadf589be,
         type: 3}
       propertyPath: m_RootOrder
@@ -13400,7 +13380,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 911973830, guid: 88633743a0ec0af4eb49a7a863051e45, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 60.00006
+      value: 60.000122
       objectReference: {fileID: 0}
     - target: {fileID: 5659921223093840644, guid: 88633743a0ec0af4eb49a7a863051e45,
         type: 3}
