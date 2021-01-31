@@ -14,6 +14,8 @@ public class SpaceStation : MonoBehaviour
     [TextArea]
     public string WinMessage;
 
+    public string NextLevel;
+
     private Vector3 StartPosition;
     bool won = false;
 
@@ -65,6 +67,9 @@ public class SpaceStation : MonoBehaviour
 
             if (objectiveHit != null)
             {
+                won = true;
+                gameManager.WinLevel(gameObject.scene.name, NextLevel);
+
                 Win();
             }
 
@@ -100,7 +105,7 @@ public class SpaceStation : MonoBehaviour
     private void Win()
     {
         won = true;
-        gameManager.WinLevel(gameObject.scene.name);
+        gameManager.WinLevel(gameObject.scene.name, NextLevel);
 
         if (!string.IsNullOrEmpty(WinMessage))
         {

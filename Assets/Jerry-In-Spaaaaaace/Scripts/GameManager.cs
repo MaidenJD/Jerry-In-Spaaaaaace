@@ -86,24 +86,24 @@ public class GameManager : MonoBehaviour
     /// <param name="Score">The Score won in that scene</param>
     /// <param name="StartWaitTime">The amount of time the functions waits before unloading won scene</param>
     /// <returns></returns>
-    public IEnumerator WinLevelAsync(string Scene, int Score = 0, float StartWaitTime = 5f)
+    public IEnumerator WinLevelAsync(string UnloadScene, string NextScene, int Score = 0, float StartWaitTime = 5f)
     {
         //Save the Score
-        sceneScores.Add(Scene, Score);
+        sceneScores.Add(UnloadScene, Score);
 
         //I think this is for the fade to black? 
         yield return new WaitForSeconds(StartWaitTime);
 
         //Unload the "Won" scene
-        yield return SceneManager.UnloadSceneAsync(Scene);
+        yield return SceneManager.UnloadSceneAsync(UnloadScene);
         
         //Load in the Next Scene
-        yield return SceneManager.LoadSceneAsync(SelectScene, LoadSceneMode.Additive);
+        yield return SceneManager.LoadSceneAsync(NextScene, LoadSceneMode.Additive);
     }
 
-    public void WinLevel(string Scene, int Score = 0, float StartWaitTime = 5f)
+    public void WinLevel(string Scene, string NextScene, int Score = 0, float StartWaitTime = 5f)
     {
         //Starting the coroutine here because it will unload the scene were the coroutine is called and will start after unloaded the scene it was called from
-        StartCoroutine(WinLevelAsync(Scene, Score, StartWaitTime));
+        StartCoroutine(WinLevelAsync(Scene, NextScene, Score, StartWaitTime));
     }
 }
