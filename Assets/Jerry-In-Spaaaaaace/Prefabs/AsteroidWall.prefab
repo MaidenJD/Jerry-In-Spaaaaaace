@@ -77,7 +77,7 @@ SpriteShapeRenderer:
   m_SortingOrder: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_MaskInteraction: 0
-  m_ShapeTexture: {fileID: 0}
+  m_ShapeTexture: {fileID: 2800000, guid: 21a0f2db49a84df4aaec832a2c132dc1, type: 3}
   m_Sprites:
   - {fileID: 21300000, guid: ea47e82298e76e84ba06b5f2c0c39240, type: 3}
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
@@ -156,7 +156,7 @@ EdgeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 1
   m_Points:
   - {x: -5.085448, y: 0.0005246905}
   - {x: -2.4498525, y: -0.016778689}
