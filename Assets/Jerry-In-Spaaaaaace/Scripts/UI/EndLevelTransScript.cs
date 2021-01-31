@@ -18,7 +18,10 @@ public class EndLevelTransScript : MonoBehaviour
 
     public AudioClip[] LossClips;
     public AudioClip[] WinClips;
-    public AudioClip LevelSpecificClip;
+
+    public bool IsFirstLevel = false;
+    public AudioClip[] JerryClips;
+
 
     private AudioSource Audio;
 
@@ -46,7 +49,7 @@ public class EndLevelTransScript : MonoBehaviour
             William.SetTrigger("Open");
             Shown = true;
 
-            var Clip = WinClips.Length > 0 ? WinClips[Mathf.RoundToInt(Random.Range(0, WinClips.Length))] : null;
+            var Clip = GetRandomClip(WinClips);
             if (Clip != null)
             {
                 Audio.PlayOneShot(Clip);
@@ -78,9 +81,13 @@ public class EndLevelTransScript : MonoBehaviour
 
         StartDayButton.onClick.AddListener(StartDay);
 
-        if (LevelSpecificClip != null)
+        if (IsFirstLevel)
         {
-            Audio.PlayOneShot(LevelSpecificClip);
+            var Clip = GetRandomClip(JerryClips);
+            if (Clip != null)
+            {
+                Audio.PlayOneShot(Clip);
+            }
         }
     }
 
@@ -100,7 +107,7 @@ public class EndLevelTransScript : MonoBehaviour
     public void ShowGameOverScreen(){
         William.SetTrigger("OpenOver");
 
-        var Clip = LossClips.Length > 0 ? LossClips[Mathf.RoundToInt(Random.Range(0, LossClips.Length))] : null;
+        var Clip = GetRandomClip(LossClips);
         if (Clip != null)
         {
             Audio.PlayOneShot(Clip);
@@ -110,6 +117,11 @@ public class EndLevelTransScript : MonoBehaviour
     //Hides GameOver Screen
     public void HideGameOverScreen(){
         William.SetTrigger("CloseOver");
+    }
+
+    private AudioClip GetRandomClip(AudioClip[] Clips)
+    {
+        return Clips.Length > 0 ? Clips[Mathf.RoundToInt(Random.Range(0, Clips.Length))] : null;
     }
 
     #region Callbacks

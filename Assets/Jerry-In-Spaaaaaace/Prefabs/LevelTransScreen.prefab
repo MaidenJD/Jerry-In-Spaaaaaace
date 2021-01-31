@@ -1854,7 +1854,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2bc87cff2fc2fff4784257960a7a6845, type: 3}
   - {fileID: 8300000, guid: 930210975518d6a45b34ede23dcb4cd6, type: 3}
   - {fileID: 8300000, guid: 8744b1527df64e34c9178d7a5976af43, type: 3}
-  LevelSpecificClip: {fileID: 0}
+  bIsFirstLevel: 0
+  JerryClips:
+  - {fileID: 8300000, guid: 78c3729bb7aedb3499e94b0a31076ff6, type: 3}
+  - {fileID: 8300000, guid: 2d3d8f2b3ce30704bafcf1caddff7587, type: 3}
+  - {fileID: 8300000, guid: a867cde8e82705742bad7a90fbd48be0, type: 3}
+  - {fileID: 8300000, guid: 5787d55a908aedc448e54f641342619a, type: 3}
   ShowStartScreenTime: 8
 --- !u!114 &2127168824
 MonoBehaviour:
