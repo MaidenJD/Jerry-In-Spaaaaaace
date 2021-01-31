@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Thruster: {fileID: 0}
+  chainCount: -1
 --- !u!114 &-856495184428189910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,8 +146,8 @@ MonoBehaviour:
     maxScale: 0.2
   - sprite: {fileID: 21300000, guid: 9bd6f891c5d4e59469b097fd3cf7be99, type: 3}
     weighting: 1
-    minScale: 0.1
-    maxScale: 0.1
+    minScale: 0.2
+    maxScale: 0.2
   - sprite: {fileID: 21300000, guid: 05e5dd2c76cf73c4d878d707e9d09dfd, type: 3}
     weighting: 10
     minScale: 0.1
@@ -176,6 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customThrust: 1
+  overrideDirection: {x: 0, y: 0}
 --- !u!60 &3402025104172410699
 PolygonCollider2D:
   m_ObjectHideFlags: 0

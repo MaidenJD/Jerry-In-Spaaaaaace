@@ -11,7 +11,7 @@ public class AddInitialImpulse : MonoBehaviour
     public Vector2 overrideDirection;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.Sleep();

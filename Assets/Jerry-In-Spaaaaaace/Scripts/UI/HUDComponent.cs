@@ -16,7 +16,7 @@ public class HUDComponent : MonoBehaviour
     public Image OffScreenObjective { get; private set; }
 
     [HideInInspector]
-    private Objective Objective;
+    private GameObject Objective;
     private float ObjectiveTimeDilation = 20;
 
     JerryMessage MessageFromJerry;
@@ -31,9 +31,9 @@ public class HUDComponent : MonoBehaviour
         OnScreenObjective = transform.Find("Objective Marker").Find("On Screen Objective").GetComponent<Image>();
         OffScreenObjective = transform.Find("Objective Marker").Find("Off Screen Objective").GetComponent<Image>();
 
-        Objective = GameObject.FindObjectOfType<Objective>();
-
         Ship = GameObject.FindObjectOfType<PlayerInput>();
+
+        GetComponent<Canvas>().worldCamera = Camera.main;
     }
 
     void Update()
@@ -77,5 +77,15 @@ public class HUDComponent : MonoBehaviour
                 OffScreenObjective.rectTransform.rotation = Quaternion.Slerp(OffScreenObjective.rectTransform.rotation, Rot, Time.deltaTime * ObjectiveTimeDilation);
             }
         }
+    }
+
+    public void ClearObjective()
+    {
+        Objective = null;
+    }
+
+    public void SetObjective(GameObject NewObjective)
+    {
+        Objective = NewObjective;
     }
 }
