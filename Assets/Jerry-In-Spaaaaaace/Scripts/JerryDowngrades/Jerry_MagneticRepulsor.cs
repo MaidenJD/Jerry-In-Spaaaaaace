@@ -45,7 +45,7 @@ public class Jerry_MagneticRepulsor : Jerry_RandomTimeEffect
                 break;
             case 2:
                 jerryRef.ShowJerryMessage("Hey, check this out... Computer! Active the Magnetic Repulsor! Maximum yeet!");
-                forceMultiplier = 200f;
+                forceMultiplier = 100f;
                 break;
             default:
                 jerryRef.ShowJerryMessage("Hi buddy! Seems you've got some excess baggage there and your ship could lose a few pounds. How about I use that replusor I was talking about earlier?");

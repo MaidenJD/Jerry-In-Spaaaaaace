@@ -44,8 +44,11 @@ public class Debris : MonoBehaviour
         {
             if(collision.contacts[i].collider.gameObject.CompareTag("Debris"))
             {
-                CollisionHit.Invoke(this, collision.gameObject.GetComponent<Debris>(), collision.contacts[i].point);
-                break;
+                if (collision.gameObject.GetComponent<Pickup>() == null)
+                {
+                    CollisionHit.Invoke(this, collision.gameObject.GetComponent<Debris>(), collision.contacts[i].point);
+                    break;
+                }
             }
         }
     }

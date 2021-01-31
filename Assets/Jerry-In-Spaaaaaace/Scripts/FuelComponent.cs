@@ -16,10 +16,10 @@ namespace Jerry
 
             [Header("Design")]
             [SerializeField]
-            private float StartingFuel = 100f;
+            private float StartingFuel = 300f;
             
             [SerializeField]
-            private float FuelCap      = 100f;
+            private float FuelCap      = 300f;
 
             public UnityEvent OnFuelDepleted = new UnityEvent();
 
