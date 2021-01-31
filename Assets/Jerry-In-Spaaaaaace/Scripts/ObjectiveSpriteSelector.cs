@@ -9,6 +9,7 @@ public class ObjectiveSpriteSelector : MonoBehaviour
     public Sprite carSprite;
     public Sprite sputnikSprite;
     public Sprite lunchboxSprite;
+    public Sprite jerrySprite;
 
     // Start is called before the first frame update
     void OnEnable()
@@ -26,6 +27,11 @@ public class ObjectiveSpriteSelector : MonoBehaviour
                 break;
             case ObjectiveType.Lunchbox:
                 spriteR.sprite = lunchboxSprite;
+                break;
+            case ObjectiveType.Jerry:
+                spriteR.sprite = jerrySprite;
+                float scaleSize = 0.2f;
+                gameObject.transform.localScale = new Vector3(scaleSize, scaleSize, scaleSize);
                 break;
             default:
                 Debug.Log(@"No Objective sprite for " + objRef.Type);
