@@ -319,6 +319,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4329187265554257944, guid: 85356c01deb0d1f4b97d1c5b00dc0f43,
         type: 3}
+      propertyPath: m_EdgeRadius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4329187265554257944, guid: 85356c01deb0d1f4b97d1c5b00dc0f43,
+        type: 3}
       propertyPath: m_Points.Array.size
       value: 28
       objectReference: {fileID: 0}
@@ -1493,11 +1498,19 @@ PrefabInstance:
       objectReference: {fileID: 1833048523}
     - target: {fileID: 5414087070842196366, guid: fe568fb93a0f03740a3a9f545193c574,
         type: 3}
+      propertyPath: WinMessage
+      value: 'Hey, I got it
+
+        We make a great team where I can take all of
+        the credit'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5414087070842196366, guid: fe568fb93a0f03740a3a9f545193c574,
+        type: 3}
       propertyPath: StartingMessage
       value: 'Hey Buddy, I want you to collect that rare thing over there
 
         You
-        should see my pointing finger'
+        should see my pointing arrow'
       objectReference: {fileID: 0}
     - target: {fileID: 5414087070842196367, guid: fe568fb93a0f03740a3a9f545193c574,
         type: 3}

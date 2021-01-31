@@ -122,6 +122,43 @@ public class Debris : MonoBehaviour
         JointBroken.Invoke(this);
     }
 
+    public PlayerInput GetPlayerShip()
+    {
+        if(chainCount < 0)
+        {
+            return null;
+        }
+        else
+        {
+            PlayerInput pInput = null;
+            bool foundPlayer = false;
+            Debris currentDebris = this;
+            while(foundPlayer == false)
+            {
+                Debris newDebris = currentDebris.attachedJoint.connectedBody.GetComponent<Debris>();
+
+                if(newDebris != null)
+                {
+                    currentDebris = newDebris;
+                    continue;
+                }
+                else
+                {
+                    pInput = currentDebris.attachedJoint.connectedBody.GetComponent<PlayerInput>();
+                    if (pInput == null)
+                    {
+                        Debug.LogError("Could not find the player");
+                        break;
+                    }
+                    
+                    break;
+                }
+            }
+
+            return pInput;
+        }
+    }
+
     public class DebrisHitEvent : UnityEvent<Debris, Debris, Vector2> { }
 
     public class DebrisEvent : UnityEvent<Debris> { }
