@@ -14,6 +14,7 @@ public class Jerry_RandomTimeEffect : MonoBehaviour
     protected Rigidbody2D rb;
     protected JerryMessage jerryRef;
 
+    public AudioClip clip;
     protected bool pauseTimer;
 
     // Start is called before the first frame update
@@ -81,6 +82,12 @@ public class Jerry_RandomTimeEffect : MonoBehaviour
     public virtual void triggerBehaviour()
     {
         jerryRef.messageIntroDone.RemoveListener(triggerBehaviour);
+
+        if (clip != null)
+        {
+            GetComponent<AudioSource>().PlayOneShot(clip);
+        }
+
     }
 
 }

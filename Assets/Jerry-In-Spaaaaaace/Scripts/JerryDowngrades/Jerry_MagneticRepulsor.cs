@@ -9,7 +9,6 @@ public class Jerry_MagneticRepulsor : Jerry_RandomTimeEffect
     private List<Debris> debrisList = new List<Debris>();
     public float forceMultiplier;
 
-
     protected override void SetDefaults()
     {
         minWait = 35;

@@ -25,7 +25,7 @@ public class JerryMessage : MonoBehaviour
 
         MessageAudio = GetComponent<AudioSource>();
 
-        ShowJerryMessage("Sup Mother Fucker, I've had enough of your shit. I deserve Employee of the Month, DESERVE IT. I hear you joking about me back at the station. Just watch your back my friend, never know what can happen in space...");
+        //ShowJerryMessage("Sup Mother Fucker, I've had enough of your shit. I deserve Employee of the Month, DESERVE IT. I hear you joking about me back at the station. Just watch your back my friend, never know what can happen in space...");
     }
 
     public void ShowJerryMessage(string Message, float CloseDelay = 10f)
