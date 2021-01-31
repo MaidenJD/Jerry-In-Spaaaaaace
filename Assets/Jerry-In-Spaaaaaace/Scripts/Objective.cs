@@ -20,6 +20,9 @@ public class Objective : Debris
             case ObjectiveType.Sputnik:
                 objectiveName = "Sputnik";
                 break;
+            case ObjectiveType.Jerry:
+                objectiveName = "Jerry";
+                break;
         }
     }
 }
@@ -28,5 +31,6 @@ public enum ObjectiveType
 {
     ElonMuskCar,
     Sputnik,
-    Lunchbox
+    Lunchbox,
+    Jerry
 }

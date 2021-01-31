@@ -121,7 +121,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Thruster: {fileID: 0}
+  chainCount: -1
   Type: 0
+  objectiveName: 
 --- !u!114 &-6073792965742433907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,6 +139,7 @@ MonoBehaviour:
   carSprite: {fileID: 21300000, guid: b0c33f7e0a0afa145a68bdeba95f9d0f, type: 3}
   sputnikSprite: {fileID: 21300000, guid: 35e57d7c51253ed43b5345781a741137, type: 3}
   lunchboxSprite: {fileID: 21300000, guid: 8e4f15c60269eba41a18f4b7f9db01ba, type: 3}
+  jerrySprite: {fileID: 21300000, guid: c973d15985d09a9438c7eafa031f0247, type: 3}
 --- !u!60 &2002798697
 PolygonCollider2D:
   m_ObjectHideFlags: 0
