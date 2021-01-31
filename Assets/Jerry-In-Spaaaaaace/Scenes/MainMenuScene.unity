@@ -502,6 +502,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef1a4584451493c40bd9f53de3a0e4d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MissionName: LevelOne
+  StartDelay: 3
 --- !u!4 &354304653
 Transform:
   m_ObjectHideFlags: 0
@@ -1418,6 +1420,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
         m_MethodName: set_enabled
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 354304652}
+        m_TargetAssemblyTypeName: LoadGameManager, Assembly-CSharp
+        m_MethodName: StartGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

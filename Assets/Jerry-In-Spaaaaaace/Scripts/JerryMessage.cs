@@ -12,6 +12,8 @@ public class JerryMessage : MonoBehaviour
     public UnityEvent messageGone;
     public UnityEvent messageStart;
 
+    public UnityEvent messageFinished;
+
     private AudioSource MessageAudio;
     public AudioClip[] IntroBeeps;
     public AudioClip[] OutroBeeps;
@@ -28,7 +30,7 @@ public class JerryMessage : MonoBehaviour
         //ShowJerryMessage("Sup Mother Fucker, I've had enough of your shit. I deserve Employee of the Month, DESERVE IT. I hear you joking about me back at the station. Just watch your back my friend, never know what can happen in space...");
     }
 
-    public void ShowJerryMessage(string Message, float CloseDelay = 10f)
+    public bool ShowJerryMessage(string Message, float CloseDelay = 10f)
     {
         if (bCanShowMessage)
         {
@@ -39,7 +41,10 @@ public class JerryMessage : MonoBehaviour
             Text.text = Message;
             Animations.Play("Incoming Message");
             this.CloseDelay = CloseDelay;
+            return true;
         }
+
+        return false;
     }
 
     private void PlayIntroMessageBeep()
@@ -81,5 +86,6 @@ public class JerryMessage : MonoBehaviour
     public void MessageOutroFinished()
     {
         bCanShowMessage = true;
+        messageFinished.Invoke();
     }
 }

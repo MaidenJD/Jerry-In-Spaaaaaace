@@ -99,8 +99,16 @@ public class GameManager : MonoBehaviour
         //Unload the "Won" scene
         yield return SceneManager.UnloadSceneAsync(UnloadScene);
         
-        //Load in the Next Scene
-        yield return SceneManager.LoadSceneAsync(NextScene, LoadSceneMode.Additive);
+        if(string.IsNullOrEmpty(NextScene))
+        {
+            yield return SceneManager.LoadSceneAsync(MainMenuScene, LoadSceneMode.Additive);
+        }
+        else
+        {
+            //Load in the Next Scene
+            yield return SceneManager.LoadSceneAsync(NextScene, LoadSceneMode.Additive);
+        }
+        
     }
 
     public void WinLevel(string Scene, string NextScene, int Score = 0, float StartWaitTime = 5f)
@@ -148,5 +156,27 @@ public class GameManager : MonoBehaviour
         yield return SceneManager.UnloadSceneAsync(name);
 
         yield return SceneManager.LoadSceneAsync(name);
+    }
+
+    /// <summary>
+    /// This is intended for loading from the MainMenu into a game scene 
+    /// </summary>
+    /// <param name="unloadScene"></param>
+    /// <param name="MissionScene"></param>
+    public void StartMission(string unloadScene, string MissionScene, float WaitTime = 0f)
+    {
+        StartCoroutine(StartMissionAsync(unloadScene, MissionScene, WaitTime));
+    }
+
+    private IEnumerator StartMissionAsync(string unloadScene, string MissionScene, float WaitTime = 0f)
+    {
+        if(WaitTime > Mathf.Epsilon)
+        {
+            yield return new WaitForSeconds(WaitTime);
+        }
+
+        yield return SceneManager.UnloadSceneAsync(unloadScene);
+
+        yield return SceneManager.LoadSceneAsync(MissionScene);
     }
 }
