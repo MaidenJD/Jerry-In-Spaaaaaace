@@ -131,7 +131,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 18.195723, y: 0}
+  m_AnchoredPosition: {x: 18.152319, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4084555006586168021
@@ -1715,6 +1715,7 @@ GameObject:
   - component: {fileID: 4853894493735709966}
   - component: {fileID: 8802725672394299959}
   - component: {fileID: 278055136582826461}
+  - component: {fileID: 740632642}
   m_Layer: 5
   m_Name: LevelTransScreen
   m_TagString: Untagged
@@ -1838,6 +1839,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   William: {fileID: 8802725672394299959}
+  StartDayButton: {fileID: 0}
+  EndDayButton: {fileID: 0}
+  RestartMissionButton: {fileID: 0}
+  ReturnToMainMenuButton: {fileID: 0}
+  ShowStartScreenTime: 4
+--- !u!114 &740632642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4853894493735709967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0579bd3d0ccb56e4d91917417c2ee0c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectiveImageObject: {fileID: 9009684730762379277}
+  objectiveTextObject: {fileID: 1989533859249694469}
 --- !u!1 &4853894494023760958
 GameObject:
   m_ObjectHideFlags: 0
@@ -2489,6 +2509,7 @@ GameObject:
   - component: {fileID: 4955511994128417398}
   - component: {fileID: 4544708106959566455}
   - component: {fileID: 3142333099526196665}
+  - component: {fileID: 851992065}
   m_Layer: 5
   m_Name: BeginningLevelPanel
   m_TagString: Untagged
@@ -2582,6 +2603,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &851992065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6459175177416551501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0579bd3d0ccb56e4d91917417c2ee0c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectiveImageObject: {fileID: 9009684730762379277}
+  objectiveTextObject: {fileID: 1989533859249694469}
 --- !u!1 &7068319263219402092
 GameObject:
   m_ObjectHideFlags: 0
