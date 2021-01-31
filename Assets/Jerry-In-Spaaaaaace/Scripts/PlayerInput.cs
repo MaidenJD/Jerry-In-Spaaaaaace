@@ -87,6 +87,8 @@ public class PlayerInput : MonoBehaviour
 
     private bool allowDebris = true;
 
+    public bool InputEnabled = true;
+
     public Dictionary<int, Debris> GetConnectedDebris()
     {
         return connectedDebris;
@@ -131,7 +133,7 @@ public class PlayerInput : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 #elif ENABLE_INPUT_SYSTEM
-        Vector2 movement = gameplayControls.Movement.ReadValue<Vector2>();
+        Vector2 movement = InputEnabled ? gameplayControls.Movement.ReadValue<Vector2>() : Vector2.zero;
         float h = movement.x;
         float v = movement.y;
 #endif
@@ -161,7 +163,7 @@ public class PlayerInput : MonoBehaviour
 #if ENABLE_LEGACY_INPUT_MANAGER
         float r = Input.GetAxis("Rotate");
 #elif ENABLE_INPUT_SYSTEM
-        float r = gameplayControls.Rotate.ReadValue<float>();
+        float r = InputEnabled ? gameplayControls.Rotate.ReadValue<float>() : 0f;
 #endif
         r = -r * torqueAmount;
 
@@ -492,6 +494,9 @@ public class PlayerInput : MonoBehaviour
 
     private void DetachAllDebris()
     {
+        if (!InputEnabled)
+            return;
+
         foreach(KeyValuePair<int, Debris> element in connectedDebris)
         {
             element.Value.Detach();

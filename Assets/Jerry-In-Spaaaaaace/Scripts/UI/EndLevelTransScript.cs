@@ -58,7 +58,6 @@ public class EndLevelTransScript : MonoBehaviour
     //Fades in from Black and shows the Start Screen
     public void ShowStartScreen(){
         William.SetTrigger("OpenStart");
-        spaceControls.Gameplay.Disable();
 
         StartDayButton.onClick.AddListener(StartDay);
     }
@@ -66,7 +65,6 @@ public class EndLevelTransScript : MonoBehaviour
     //Hides the Starting screen
     public void HideStartScreen(){
         William.SetTrigger("CloseStart");
-        spaceControls.Gameplay.Enable();
 
         FindObjectOfType<SpaceStation>().StartMission();
     }
