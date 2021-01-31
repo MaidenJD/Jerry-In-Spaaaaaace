@@ -15,6 +15,8 @@ public class CameraScript : MonoBehaviour
 #endif
 
     public float ZoomSpeed = 100;
+    public float MinZoom = 10f;
+    public float MaxZoom = 100f;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +35,7 @@ public class CameraScript : MonoBehaviour
 
     private void OnDisable()
     {
-        zoomAction.Enable();
+        zoomAction.Disable();
         zoomAction = null;
     }
 #endif
@@ -54,7 +56,7 @@ public class CameraScript : MonoBehaviour
         {
             float ZoomOffset = scroll * ZoomSpeed;
             Pos.z += ZoomOffset;
-            Pos.z = Mathf.Clamp(Pos.z, -100, -10);
+            Pos.z = Mathf.Clamp(Pos.z, -MaxZoom, -MinZoom);
         }
 
         transform.position = Pos;
