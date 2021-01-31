@@ -22,6 +22,7 @@ public class SpaceStation : MonoBehaviour
     bool won = false;
 
     private PlayerInput playerRef;
+    private JerryMessage jerryMsg;
 
     private void Start()
     {
@@ -37,6 +38,8 @@ public class SpaceStation : MonoBehaviour
 
         playerRef = FindObjectOfType<PlayerInput>();
         playerRef.InputEnabled = false;
+
+        jerryMsg = FindObjectOfType<JerryMessage>();
     }
 
     private void OnEnable()
@@ -127,17 +130,35 @@ public class SpaceStation : MonoBehaviour
 
         if (!string.IsNullOrEmpty(WinMessage))
         {
-            var jerryMsg = FindObjectOfType<JerryMessage>();
-
-            jerryMsg.ShowJerryMessage(WinMessage);
-
-            jerryMsg.messageGone.AddListener(FinishedWinTalking);
+            if(jerryMsg.ShowJerryMessage(WinMessage))
+            {
+                jerryMsg.messageGone.AddListener(FinishedWinTalking);
+            }
+            else
+            {
+                jerryMsg.messageFinished.AddListener(OnPreviousMessageFinished);
+            }
         }
         else
         {
             //Show the end screen
             endLevelTrans.EnableLevelEndScreen();
             endLevelTrans.EndDayButton.onClick.AddListener(FinishDay);
+        }
+    }
+
+    private void OnPreviousMessageFinished()
+    {
+        jerryMsg.messageFinished.RemoveListener(OnPreviousMessageFinished);
+
+        if (!jerryMsg.ShowJerryMessage(WinMessage))
+        {
+            Debug.LogError("HELP ME");
+            FinishMission();
+        }
+        else
+        {
+            jerryMsg.messageGone.AddListener(FinishedWinTalking);
         }
     }
 
