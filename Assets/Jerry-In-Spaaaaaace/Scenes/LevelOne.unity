@@ -336,26 +336,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4853894493394392486, guid: c93d7bb922ef6584d98b6fc879318d0a,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4853894493394392486, guid: c93d7bb922ef6584d98b6fc879318d0a,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4853894493394392486, guid: c93d7bb922ef6584d98b6fc879318d0a,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4853894493394392486, guid: c93d7bb922ef6584d98b6fc879318d0a,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4853894493735709967, guid: c93d7bb922ef6584d98b6fc879318d0a,
         type: 3}
       propertyPath: m_Name
@@ -464,26 +444,6 @@ PrefabInstance:
     - target: {fileID: 4853894493735709971, guid: c93d7bb922ef6584d98b6fc879318d0a,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4853894494512649348, guid: c93d7bb922ef6584d98b6fc879318d0a,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4853894494512649348, guid: c93d7bb922ef6584d98b6fc879318d0a,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4853894494512649348, guid: c93d7bb922ef6584d98b6fc879318d0a,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4853894494512649348, guid: c93d7bb922ef6584d98b6fc879318d0a,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4904314207920448870, guid: c93d7bb922ef6584d98b6fc879318d0a,
@@ -1006,7 +966,7 @@ PrefabInstance:
     - target: {fileID: 6112432345652667288, guid: 85356c01deb0d1f4b97d1c5b00dc0f43,
         type: 3}
       propertyPath: m_DynamicOccludee
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6112432345652667288, guid: 85356c01deb0d1f4b97d1c5b00dc0f43,
         type: 3}

@@ -22,10 +22,4 @@ public class ObjectiveStartScreen : MonoBehaviour
         objectiveImageObject.GetComponent<Image>().sprite = objectiveRef.GetComponent<SpriteRenderer>().sprite;
         objectiveTextObject.GetComponent<Text>().text = objectiveRef.objectiveName;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

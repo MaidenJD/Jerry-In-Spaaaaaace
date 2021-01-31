@@ -11,7 +11,7 @@ public class ObjectiveSpriteSelector : MonoBehaviour
     public Sprite lunchboxSprite;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         objRef = gameObject.GetComponent<Objective>();
         spriteR = gameObject.GetComponent<SpriteRenderer>();
@@ -35,9 +35,4 @@ public class ObjectiveSpriteSelector : MonoBehaviour
         gameObject.AddComponent<AutoSpriteCollisionSizer>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
