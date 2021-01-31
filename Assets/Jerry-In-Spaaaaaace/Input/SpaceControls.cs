@@ -159,7 +159,7 @@ public class @SpaceControls : IInputActionCollection, IDisposable
                 {
                     ""name"": ""negative"",
                     ""id"": ""c7ac0bee-9826-42d8-ba3c-27f6d0f4713c"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -170,7 +170,7 @@ public class @SpaceControls : IInputActionCollection, IDisposable
                 {
                     ""name"": ""positive"",
                     ""id"": ""e599d8df-32a7-45cf-a82f-f4158fda3f8d"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -368,7 +368,7 @@ public class @SpaceControls : IInputActionCollection, IDisposable
                 {
                     ""name"": ""negative"",
                     ""id"": ""df647356-e8fb-459b-8f33-d7cc6011a992"",
-                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -379,7 +379,7 @@ public class @SpaceControls : IInputActionCollection, IDisposable
                 {
                     ""name"": ""positive"",
                     ""id"": ""2cd75fec-1cfc-4697-b509-03520e805e17"",
-                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",

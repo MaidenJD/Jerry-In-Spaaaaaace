@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 public class HUDComponent : MonoBehaviour
 {
@@ -16,6 +19,7 @@ public class HUDComponent : MonoBehaviour
     private Objective Objective;
     private float ObjectiveTimeDilation = 20;
 
+    JerryMessage MessageFromJerry;
 
     [HideInInspector]
     private PlayerInput Ship;

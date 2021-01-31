@@ -108,11 +108,13 @@ public class PlayerInput : MonoBehaviour
         gameplayControls.Break.performed -= AttemptBreak;
     }
 
+    public bool[] ThrusterStates;
+
     private void Update()
     {
         //Reset the thruster state
         //Keep track of the Thruster that are going to be activated
-        bool[] ThrusterStates = new bool[AllThrusters.Count];
+        ThrusterStates = new bool[AllThrusters.Count];
 
 #if ENABLE_LEGACY_INPUT_MANAGER
         float h = Input.GetAxis("Horizontal");
@@ -282,6 +284,7 @@ public class PlayerInput : MonoBehaviour
         AnticlockwiseThrusters.Remove(index);
         DirectionalThrusters.Remove(index);
         AllThrusters.RemoveAt(index);
+        removeThruster.Stop();
     }
 
     void PlayDirectionalThrusters(Vector2 dir, ref bool[] ThrusterStates)
@@ -297,7 +300,6 @@ public class PlayerInput : MonoBehaviour
             {
                 ThrusterStates[i] = activeThruster;
             }
-            
         }
     }
 
@@ -434,6 +436,12 @@ public class PlayerInput : MonoBehaviour
 
         hitDebris.CollisionHit.AddListener(OnDebrisCollision);
         hitDebris.JointBroken.AddListener(OnDebrisJointBroken);
+
+        //Check if there is a thruster on this debris
+        if(hitDebris.Thruster)
+        {
+            AddThruster(hitDebris.Thruster);
+        }
     }
 
     private void DetachAllDebris()

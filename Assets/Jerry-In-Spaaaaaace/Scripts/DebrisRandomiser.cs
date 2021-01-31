@@ -16,6 +16,12 @@ public class DebrisRandomiser : MonoBehaviour
     {
         spriteR = gameObject.GetComponent<SpriteRenderer>();
 
+        changeToNewSprite();
+        
+    }
+
+    public void changeToNewSprite()
+    {
         SpriteChance randSC = getRandomSpriteChance();
 
         spriteR.sprite = randSC.sprite;
