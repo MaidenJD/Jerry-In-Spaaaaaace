@@ -6,7 +6,9 @@ public class SpaceStation : MonoBehaviour
 {
     [Header("Component References")]
     public GameManager gameManager;
+
     public EndLevelTransScript endLevelTrans;
+
     public float RotationSpeed;
 
     [Header("Mission Details")]

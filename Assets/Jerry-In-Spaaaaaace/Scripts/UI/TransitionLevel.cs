@@ -5,10 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class TransitionLevel : MonoBehaviour
 {
-    public IEnumerator StartGame()
-    {
-        yield return SceneManager.LoadSceneAsync("LevelOne", LoadSceneMode.Additive);
+    public string LevelToLoadTo;
 
-        yield return SceneManager.UnloadSceneAsync(gameObject.scene);
+    public void LoadLevel()
+    {
+        SceneManager.LoadSceneAsync(LevelToLoadTo, LoadSceneMode.Additive);
+
+        SceneManager.UnloadSceneAsync(gameObject.scene);
     }
+
+
+
 }
