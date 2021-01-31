@@ -26,6 +26,8 @@ namespace Jerry
             private Slider FuelGauge;
             private PlayerInput Ship;
 
+            public AudioClip clip;
+
             private void Start()
             {
                 RemainingFuel = StartingFuel;
@@ -48,6 +50,11 @@ namespace Jerry
             public void AddFuel(float Amount)
             {
                 RemainingFuel = Mathf.Min(RemainingFuel + Amount, FuelCap);
+
+                if (clip != null)
+                {
+                    GetComponent<AudioSource>().PlayOneShot(clip);
+                }
             }
 
             public float GetNormalizedFuel()
