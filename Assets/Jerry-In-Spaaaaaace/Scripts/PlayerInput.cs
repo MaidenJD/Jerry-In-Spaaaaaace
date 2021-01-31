@@ -77,6 +77,8 @@ public class PlayerInput : MonoBehaviour
     public int ObjectiveCount { get; private set; }
 
     private SpaceControls.GameplayActions gameplayControls;
+
+    private AudioSource ThrusterSound;
     
     
     public Rigidbody2D rb { get; private set; }
@@ -94,6 +96,10 @@ public class PlayerInput : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         Fuel = GetComponent<FuelComponent>();
+
+        ThrusterSound = GetComponent<AudioSource>();
+        ThrusterSound.Play();
+        ThrusterSound.Pause();
 
         AssignThrusters();
     }
@@ -130,11 +136,15 @@ public class PlayerInput : MonoBehaviour
         float v = movement.y;
 #endif
 
+        float TotalFuelUsed = 0;
+
         Vector2 force = (transform.up * v) + (transform.right * h);
         force *= forceAmount;
 
         float DesiredFuel        = force.magnitude * Time.deltaTime;
         float FuelUsed           = Fuel.RequestFuel(DesiredFuel);
+
+        TotalFuelUsed += FuelUsed;
 
         if (FuelUsed > 0)
         {
@@ -158,6 +168,8 @@ public class PlayerInput : MonoBehaviour
         DesiredFuel        = Mathf.Abs(r) * Time.deltaTime;
         FuelUsed           = Fuel.RequestFuel(DesiredFuel);
 
+        TotalFuelUsed += FuelUsed;
+
         if (FuelUsed > 0)
         {
             float NormalizedFuelUsed = FuelUsed / DesiredFuel;
@@ -177,6 +189,21 @@ public class PlayerInput : MonoBehaviour
 
         //Set the Thrusters state
         SetThrusterStates(ref ThrusterStates);
+
+        if (TotalFuelUsed > 0)
+        {
+            if (!ThrusterSound.isPlaying)
+            {
+                ThrusterSound.UnPause();
+            }
+        }
+        else
+        {
+            if (ThrusterSound.isPlaying)
+            {
+                ThrusterSound.Pause();
+            }
+        }
 
         //Update Throttles
         forceAmount += forceChangePerSecond * Time.deltaTime * gameplayControls.AdjustForce.ReadValue<float>();
