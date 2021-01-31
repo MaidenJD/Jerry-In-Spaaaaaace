@@ -12,6 +12,9 @@ public class JerryMessage : MonoBehaviour
     public UnityEvent messageGone;
     public UnityEvent messageStart;
 
+    private AudioSource MessageAudio;
+    public AudioClip[] IntroBeeps;
+    public AudioClip[] OutroBeeps;
 
     private bool bCanShowMessage = true;
 
@@ -20,7 +23,9 @@ public class JerryMessage : MonoBehaviour
         Animations = GetComponent<Animation>();
         Text = GetComponentInChildren<TMPro.TMP_Text>();
 
-        //ShowJerryMessage("Sup Mother Fucker, I've had enough of your shit. I deserve Employee of the Month, DESERVE IT. I hear you joking about me back at the station. Just watch your back my friend, never know what can happen in space...");
+        MessageAudio = GetComponent<AudioSource>();
+
+        ShowJerryMessage("Sup Mother Fucker, I've had enough of your shit. I deserve Employee of the Month, DESERVE IT. I hear you joking about me back at the station. Just watch your back my friend, never know what can happen in space...");
     }
 
     public void ShowJerryMessage(string Message, float CloseDelay = 10f)
@@ -35,6 +40,29 @@ public class JerryMessage : MonoBehaviour
             Animations.Play("Incoming Message");
             this.CloseDelay = CloseDelay;
         }
+    }
+
+    private void PlayIntroMessageBeep()
+    {
+        var Clip = GetRandomBeep(IntroBeeps);
+        if (Clip != null)
+        {
+            MessageAudio.PlayOneShot(Clip);
+        }
+    }
+
+    private void PlayOutroMessageBeep()
+    {
+        var Clip = GetRandomBeep(OutroBeeps);
+        if (Clip != null)
+        {
+            MessageAudio.PlayOneShot(Clip);
+        }
+    }
+
+    private AudioClip GetRandomBeep(AudioClip[] Beeps)
+    {
+        return Beeps.Length > 0 ? Beeps[Mathf.RoundToInt(Random.Range(0, Beeps.Length))] : null;
     }
 
     public void MessageIntroFinished()
