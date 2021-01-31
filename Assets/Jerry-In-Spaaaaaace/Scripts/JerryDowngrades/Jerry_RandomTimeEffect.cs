@@ -12,15 +12,35 @@ public class Jerry_RandomTimeEffect : MonoBehaviour
     protected int nextTime;
     protected PlayerInput playerRef;
     protected Rigidbody2D rb;
+    protected JerryMessage jerryRef;
+
+    protected bool pauseTimer;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        jerryRef = FindObjectOfType<JerryMessage>();
         playerRef = gameObject.GetComponent<PlayerInput>();
+
+        jerryRef.messageGone.AddListener(UnpauseTimer);
+        jerryRef.messageStart.AddListener(PauseTimer);
+
+
         genNextTime();
         StartCoroutine(WaitSecond());
     }
+
+    void UnpauseTimer()
+    {
+        pauseTimer = false;
+    }
+
+    void PauseTimer()
+    {
+        pauseTimer = true;
+    }
+
 
     protected virtual void SetDefaults()
     {
@@ -32,12 +52,18 @@ public class Jerry_RandomTimeEffect : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1);
-            timer++;
+
+            if (!pauseTimer) timer++;
+
             if (timer >= nextTime)
             {
                 timer = 0;
                 genNextTime();
-                triggerBehaviour();
+
+                StopCoroutine(WaitSecond());
+                
+                jerryRef.messageIntroDone.AddListener(triggerBehaviour);
+                jerryMessageDisplay();
             }
         }
     }
@@ -47,9 +73,14 @@ public class Jerry_RandomTimeEffect : MonoBehaviour
         nextTime = Random.Range(minWait, maxWait);
     }
 
-    public virtual void triggerBehaviour()
+    public virtual void jerryMessageDisplay()
     {
+
     }
 
+    public virtual void triggerBehaviour()
+    {
+        jerryRef.messageIntroDone.RemoveListener(triggerBehaviour);
+    }
 
 }
