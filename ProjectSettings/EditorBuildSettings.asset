@@ -17,9 +17,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Jerry-In-Spaaaaaace/Scenes/LevelTwo.unity
     guid: a969cbb3902798c4594225ab5b110ecc
-  - enabled: 1
+  - enabled: 0
     path: Assets/Jerry-In-Spaaaaaace/Scenes/TestScenes/GameplayDave.unity
     guid: fea7c156097947f4d9e3d868caf86548
+  - enabled: 1
+    path: Assets/Jerry-In-Spaaaaaace/Scenes/LevelThree.unity
+    guid: 324e3f36a514a984aac08a672561e961
+  - enabled: 1
+    path: Assets/Jerry-In-Spaaaaaace/Scenes/LevelFour.unity
+    guid: cb08966c38fc3e84aa2e719970f62447
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 6962dddee6bcc474eababfde3cd677dd,
       type: 2}
