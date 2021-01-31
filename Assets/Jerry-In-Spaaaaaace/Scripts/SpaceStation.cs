@@ -11,6 +11,8 @@ public class SpaceStation : MonoBehaviour
     public Objective objective;
     [TextArea]
     public string StartingMessage;
+    [TextArea]
+    public string WinMessage;
 
     private Vector3 StartPosition;
     bool won = false;
@@ -63,9 +65,48 @@ public class SpaceStation : MonoBehaviour
 
             if (objectiveHit != null)
             {
-                won = true;
-                gameManager.WinLevel(gameObject.scene.name);
+                Win();
             }
+
+            var debrisHIt = collision.gameObject.GetComponent<Debris>();
+
+            if(debrisHIt != null)
+            {
+                //Get player ref from this debris
+                PlayerInput shipRef = debrisHIt.GetPlayerShip();
+
+                if(shipRef != null)
+                {
+                    //If this ship has more than one objective then we win
+                    if(shipRef.ObjectiveCount > 0)
+                    {
+                        Win();
+                    }
+                }
+            }
+
+            var playerHit = collision.gameObject.GetComponent<PlayerInput>();
+
+            if(playerHit != null)
+            {
+                if(playerHit.ObjectiveCount > 0)
+                {
+                    Win();
+                }
+            }
+        }
+    }
+
+    private void Win()
+    {
+        won = true;
+        gameManager.WinLevel(gameObject.scene.name);
+
+        if (!string.IsNullOrEmpty(WinMessage))
+        {
+            var jerryMsg = FindObjectOfType<JerryMessage>();
+
+            jerryMsg.ShowJerryMessage(WinMessage);
         }
     }
 }

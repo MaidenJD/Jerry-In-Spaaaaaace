@@ -71,6 +71,11 @@ public class PlayerInput : MonoBehaviour
     /// </summary>
     private List<int> AnticlockwiseThrusters;
 
+    /// <summary>
+    /// The objects that are attached to the player
+    /// </summary>
+    public int ObjectiveCount { get; private set; }
+
     private SpaceControls.GameplayActions gameplayControls;
     
     
@@ -425,6 +430,11 @@ public class PlayerInput : MonoBehaviour
         {
             AddThruster(newDebris.Thruster);
         }
+
+        if(newDebris is Objective objective)
+        {
+            ObjectiveCount++;
+        }
     }
 
     void AttachDebrisToDebris(Debris attachedDebris, Debris hitDebris, Vector2 hitPoint)
@@ -442,6 +452,11 @@ public class PlayerInput : MonoBehaviour
         {
             AddThruster(hitDebris.Thruster);
         }
+
+        if (hitDebris is Objective objective)
+        {
+            ObjectiveCount++;
+        }
     }
 
     private void DetachAllDebris()
@@ -455,6 +470,11 @@ public class PlayerInput : MonoBehaviour
             if(element.Value.Thruster != null)
             {
                 RemoveThruster(element.Value.Thruster);
+            }
+
+            if(element.Value is Objective objective)
+            {
+                ObjectiveCount--;
             }
         }
 
@@ -489,6 +509,11 @@ public class PlayerInput : MonoBehaviour
         if(debris.Thruster != null)
         {
             RemoveThruster(debris.Thruster);
+        }
+
+        if(debris is Objective objective)
+        {
+            ObjectiveCount--;
         }
 
         connectedDebris.Remove(debris.GetInstanceID());
