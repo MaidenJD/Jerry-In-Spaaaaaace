@@ -16,6 +16,14 @@ public class EndLevelTransScript : MonoBehaviour
     public Button RestartMissionButton;
     public Button ReturnToMainMenuButton;
 
+    public AudioClip[] LossClips;
+    public AudioClip[] WinClips;
+    public AudioClip LevelSpecificClip;
+
+    private AudioSource Audio;
+
+    private SpaceStation Station;
+
     public float ShowStartScreenTime = 4f;
     private bool Shown = false;
 
@@ -27,21 +35,30 @@ public class EndLevelTransScript : MonoBehaviour
 
         ShowStartScreen();
         //Invoke(nameof(HideStartScreen), ShowStartScreenTime);
+
+        Station = GameObject.FindObjectOfType<SpaceStation>();
+        Audio = GetComponent<AudioSource>();
     }
 
     //shows the level end screen
     public void EnableLevelEndScreen(){
         if (Shown == false){
-        William.SetTrigger("Open");
-        Shown = true;
+            William.SetTrigger("Open");
+            Shown = true;
+
+            var Clip = WinClips.Length > 0 ? WinClips[Mathf.RoundToInt(Random.Range(0, WinClips.Length))] : null;
+            if (Clip != null)
+            {
+                Audio.PlayOneShot(Clip);
+            }
         }
     }
 
     //hides the level end screen and fades to black
     public void DisableLevelEndScreen(){
         if (Shown){
-        William.SetTrigger("Close");
-        Shown = false;
+            William.SetTrigger("Close");
+            Shown = false;
         }
     }
 
@@ -60,6 +77,11 @@ public class EndLevelTransScript : MonoBehaviour
         William.SetTrigger("OpenStart");
 
         StartDayButton.onClick.AddListener(StartDay);
+
+        if (LevelSpecificClip != null)
+        {
+            Audio.PlayOneShot(LevelSpecificClip);
+        }
     }
 
     //Hides the Starting screen
@@ -78,7 +100,11 @@ public class EndLevelTransScript : MonoBehaviour
     public void ShowGameOverScreen(){
         William.SetTrigger("OpenOver");
 
-
+        var Clip = LossClips.Length > 0 ? LossClips[Mathf.RoundToInt(Random.Range(0, LossClips.Length))] : null;
+        if (Clip != null)
+        {
+            Audio.PlayOneShot(Clip);
+        }
     }
 
     //Hides GameOver Screen
