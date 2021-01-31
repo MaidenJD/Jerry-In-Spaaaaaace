@@ -24,6 +24,9 @@ public class HUDComponent : MonoBehaviour
     [HideInInspector]
     private PlayerInput Ship;
 
+    private Objective TargetObjective;
+    private SpaceStation Station;
+
     void Awake()
     {
         FuelGauge = transform.Find("Fuel Gauge").GetComponent<Slider>();
@@ -34,6 +37,24 @@ public class HUDComponent : MonoBehaviour
         Ship = GameObject.FindObjectOfType<PlayerInput>();
 
         GetComponent<Canvas>().worldCamera = Camera.main;
+
+        TargetObjective = GameObject.FindObjectOfType<Objective>();
+        TargetObjective.Attached.AddListener(OnHitObjective);
+        TargetObjective.Detached.AddListener(OnLoseObjective);
+
+        Station = GameObject.FindObjectOfType<SpaceStation>();
+
+        SetObjective(TargetObjective.gameObject);
+    }
+
+    void OnHitObjective(Debris _)
+    {
+        SetObjective(Station.gameObject);
+    }
+
+    void OnLoseObjective(Debris _)
+    {
+        SetObjective(TargetObjective.gameObject);
     }
 
     void Update()
