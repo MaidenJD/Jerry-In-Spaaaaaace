@@ -21,6 +21,8 @@ public class SpaceStation : MonoBehaviour
     private Vector3 StartPosition;
     bool won = false;
 
+    private PlayerInput playerRef;
+
     private void Start()
     {
         StartPosition = transform.position;
@@ -32,6 +34,9 @@ public class SpaceStation : MonoBehaviour
         {
             //StartMission();
         }
+
+        playerRef = FindObjectOfType<PlayerInput>();
+        playerRef.InputEnabled = false;
     }
 
     private void OnEnable()
@@ -60,6 +65,8 @@ public class SpaceStation : MonoBehaviour
 
             jerryMsg.ShowJerryMessage(StartingMessage);
         }
+
+        playerRef.InputEnabled = true;
     }
 
     // Update is called once per frame
@@ -81,9 +88,6 @@ public class SpaceStation : MonoBehaviour
 
             if (objectiveHit != null)
             {
-                won = true;
-                gameManager.WinLevel(gameObject.scene.name, NextLevel);
-
                 Win();
             }
 
@@ -119,6 +123,7 @@ public class SpaceStation : MonoBehaviour
     private void Win()
     {
         won = true;
+        playerRef.InputEnabled = false;
 
         if (!string.IsNullOrEmpty(WinMessage))
         {
@@ -157,16 +162,16 @@ public class SpaceStation : MonoBehaviour
     /// </summary>
     public void FinishMission()
     {
-        gameManager.WinLevel(gameObject.scene.name, NextLevel);
+        gameManager.WinLevel(gameObject.scene.name, NextLevel, 0, 0f);
     }
 
     private void GoToMainMenu()
     {
-        //gameManager.GoToMainMenu();
+        gameManager.GoToMainMenu();
     }
 
     private void RestartMission()
     {
-        //gameManager.RestartMission(gameObject.scene);
+        gameManager.RestartMission(gameObject.scene.name);
     }
 }

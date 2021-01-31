@@ -46,8 +46,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d922db9fa573a44ac6b951e7584070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameManager: {fileID: 0}
+  gameManager: {fileID: 0}
+  endLevelTrans: {fileID: 0}
   RotationSpeed: 20
+  objective: {fileID: 0}
+  StartingMessage: 
+  WinMessage: 
+  NextLevel: 
 --- !u!50 &5414087070842196364
 Rigidbody2D:
   serializedVersion: 4

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class GameManager : MonoBehaviour
     private Dictionary<string, int> sceneScores = new Dictionary<string, int>();
 
     private const string GameManagerScene = "GameManager";
+    private const string MainMenuScene = "MainMenuScene";
 
     /// <summary>
     /// Attempts to Get the Game Manager, if the Scene isn't loaded it will return false and the GM Variable will be null
@@ -105,5 +107,46 @@ public class GameManager : MonoBehaviour
     {
         //Starting the coroutine here because it will unload the scene were the coroutine is called and will start after unloaded the scene it was called from
         StartCoroutine(WinLevelAsync(Scene, NextScene, Score, StartWaitTime));
+    }
+
+    public void GoToMainMenu()
+    {
+        StartCoroutine(GoToMainMenuAsync());
+    }
+
+    private IEnumerator GoToMainMenuAsync()
+    {
+        List<Scene> removeScenes = new List<Scene>();
+
+        int sceneCount = SceneManager.sceneCount;
+
+        for(int i = 0; i < sceneCount; i++)
+        {
+            var scene = SceneManager.GetSceneAt(i);
+
+            if(scene.buildIndex != gameObject.scene.buildIndex)
+            {
+                removeScenes.Add(scene);
+            }
+        }
+
+        for(int i = 0; i < removeScenes.Count; i++)
+        {
+            yield return SceneManager.UnloadSceneAsync(removeScenes[i]);
+        }
+
+        yield return SceneManager.LoadSceneAsync(MainMenuScene);
+    }
+
+    public void RestartMission(string sceneName)
+    {
+        StartCoroutine(RestartMissionAsync(sceneName));
+    }
+
+    private IEnumerator RestartMissionAsync(string name)
+    {
+        yield return SceneManager.UnloadSceneAsync(name);
+
+        yield return SceneManager.LoadSceneAsync(name);
     }
 }
