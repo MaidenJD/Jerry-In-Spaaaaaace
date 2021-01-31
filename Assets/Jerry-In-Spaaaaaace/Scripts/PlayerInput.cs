@@ -395,7 +395,7 @@ public class PlayerInput : MonoBehaviour
 #region Debris
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (allowDebris)
+        if (allowDebris && collision.gameObject.CompareTag("Debris"))
         {
             for (int i = 0; i < collision.contactCount; i++)
             {
@@ -471,9 +471,12 @@ public class PlayerInput : MonoBehaviour
 
     private void OnDebrisCollision(Debris attachedDebris, Debris hitDebris, Vector2 hitPoint)
     {
-        if(!connectedDebris.ContainsKey(hitDebris.GetInstanceID()))
+        if (hitDebris != null)
         {
-            AttachDebrisToDebris(attachedDebris, hitDebris, hitPoint);
+            if (!connectedDebris.ContainsKey(hitDebris.GetInstanceID()))
+            {
+                AttachDebrisToDebris(attachedDebris, hitDebris, hitPoint);
+            }
         }
     }
 
