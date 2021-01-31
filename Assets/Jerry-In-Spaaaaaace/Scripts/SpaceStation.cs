@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class SpaceStation : MonoBehaviour
 {
+    [Header("Component References")]
     public GameManager gameManager;
+    public EndLevelTransScript endLevelTrans;
     public float RotationSpeed;
 
     [Header("Mission Details")]
@@ -26,17 +28,29 @@ public class SpaceStation : MonoBehaviour
         }
         else
         {
-            StartMission();
+            //StartMission();
         }
+    }
+
+    private void OnEnable()
+    {
+        endLevelTrans.ReturnToMainMenuButton.onClick.AddListener(GoToMainMenu);
+        endLevelTrans.RestartMissionButton.onClick.AddListener(RestartMission);
+    }
+
+    private void OnDisable()
+    {
+        endLevelTrans.ReturnToMainMenuButton.onClick.RemoveListener(GoToMainMenu);
+        endLevelTrans.RestartMissionButton.onClick.RemoveListener(RestartMission);
     }
 
     private void OnGameManagerLoaded(GameManager newGameManager)
     {
         gameManager = newGameManager;
-        StartMission();
+        //StartMission();
     }
 
-    private void StartMission()
+    public void StartMission()
     {
         if (!string.IsNullOrEmpty(StartingMessage))
         {
@@ -59,7 +73,7 @@ public class SpaceStation : MonoBehaviour
     {
         if (!won)
         {
-            Debug.Log($"collider hit {collision.gameObject.name}");
+            //Debug.Log($"collider hit {collision.gameObject.name}");
 
             var objectiveHit = collision.gameObject.GetComponent<Objective>() ?? null;
 
@@ -100,13 +114,54 @@ public class SpaceStation : MonoBehaviour
     private void Win()
     {
         won = true;
-        gameManager.WinLevel(gameObject.scene.name);
 
         if (!string.IsNullOrEmpty(WinMessage))
         {
             var jerryMsg = FindObjectOfType<JerryMessage>();
 
             jerryMsg.ShowJerryMessage(WinMessage);
+
+            jerryMsg.messageGone.AddListener(FinishedWinTalking);
         }
+        else
+        {
+            //Show the end screen
+            endLevelTrans.EnableLevelEndScreen();
+            endLevelTrans.EndDayButton.onClick.AddListener(FinishDay);
+        }
+    }
+
+    private void FinishedWinTalking()
+    {
+        var jerryMsg = FindObjectOfType<JerryMessage>();
+        jerryMsg.messageGone.RemoveListener(FinishedWinTalking);
+
+        //Show the end screen
+        endLevelTrans.EnableLevelEndScreen();
+        endLevelTrans.EndDayButton.onClick.AddListener(FinishDay);
+    }
+
+    private void FinishDay()
+    {
+        endLevelTrans.EndDayButton.onClick.RemoveListener(FinishDay);
+        FinishMission();
+    }
+
+    /// <summary>
+    /// This will start the transition to the next screen
+    /// </summary>
+    public void FinishMission()
+    {
+        gameManager.WinLevel(gameObject.scene.name);
+    }
+
+    private void GoToMainMenu()
+    {
+        //gameManager.GoToMainMenu();
+    }
+
+    private void RestartMission()
+    {
+        //gameManager.RestartMission(gameObject.scene);
     }
 }

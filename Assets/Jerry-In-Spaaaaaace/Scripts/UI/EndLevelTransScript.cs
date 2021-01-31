@@ -7,61 +7,93 @@ using UnityEngine;
 public class EndLevelTransScript : MonoBehaviour
 { 
     public Animator William;
+
+    [Header("Start Screen")]
+    public Button StartDayButton;
+    [Header("End Screen")]
+    public Button EndDayButton;
+    [Header("Gameover Screen")]
+    public Button RestartMissionButton;
+    public Button ReturnToMainMenuButton;
+
+    public float ShowStartScreenTime = 4f;
     private bool Shown = false;
-    // Start is called before the first frame update
-    void Awake() {
-    }
+
+    private SpaceControls spaceControls;
+
     void Start()
     {
-        
-        ShowOnTheRoad();
+        spaceControls = new SpaceControls();
+
+        ShowStartScreen();
+        //Invoke(nameof(HideStartScreen), ShowStartScreenTime);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     //shows the level end screen
-    public void ComeOnEileen(){
+    public void EnableLevelEndScreen(){
         if (Shown == false){
         William.SetTrigger("Open");
         Shown = true;
         }
     }
+
     //hides the level end screen and fades to black
-    public void ComeOffEileen(){
+    public void DisableLevelEndScreen(){
         if (Shown){
         William.SetTrigger("Close");
         Shown = false;
         }
     }
+
     //Fades to Black
-    public void BackInBlack(){
+    public void FadeInBlack(){
         William.SetTrigger("FadeToBlack");
     }
+
     //Fades in from Black
-    public void LetThereBeLight(){
+    public void FadeOutBlack(){
         William.SetTrigger("FadeToScreen");
     }
+
     //Fades in from Black and shows the Start Screen
-    public void ShowOnTheRoad(){
+    public void ShowStartScreen(){
         William.SetTrigger("OpenStart");
+        spaceControls.Gameplay.Disable();
+
+        StartDayButton.onClick.AddListener(StartDay);
     }
+
     //Hides the Starting screen
-    public void EngageLevel(){
+    public void HideStartScreen(){
         William.SetTrigger("CloseStart");
+        spaceControls.Gameplay.Enable();
+
+        FindObjectOfType<SpaceStation>().StartMission();
     }
+
     //Show just the Start Screen
     public void WhatWasTheObjectiveAgain(){
         William.SetTrigger("ShowStart");
     }
+
     //Shows GameOver Screen
-    public void GameOverManGameOver(){
+    public void ShowGameOverScreen(){
         William.SetTrigger("OpenOver");
+
+
     }
+
     //Hides GameOver Screen
-    public void WellMeetAgain(){
+    public void HideGameOverScreen(){
         William.SetTrigger("CloseOver");
     }
+
+    #region Callbacks
+    private void StartDay()
+    {
+        StartDayButton.onClick.RemoveListener(StartDay);
+
+        HideStartScreen();
+    }
+    #endregion
 }
