@@ -30,7 +30,7 @@ public class ObjectiveSpriteSelector : MonoBehaviour
                 break;
             case ObjectiveType.Jerry:
                 spriteR.sprite = jerrySprite;
-                float scaleSize = 0.2f;
+                float scaleSize = 0.1f;
                 gameObject.transform.localScale = new Vector3(scaleSize, scaleSize, scaleSize);
                 break;
             default:
