@@ -7,7 +7,7 @@ public class Objective : Debris
     public ObjectiveType Type;
     public string objectiveName;
 
-    private void Start()
+    private void Awake()
     {
         switch (Type)
         {
