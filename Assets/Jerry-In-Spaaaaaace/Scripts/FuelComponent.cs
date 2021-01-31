@@ -44,6 +44,15 @@ namespace Jerry
                 RemainingFuel -= FuelUsed;
                 FuelGauge.value = RemainingFuel;
 
+                if (RemainingFuel <= 0)
+                {
+                    var LevelTrans = GameObject.FindObjectOfType<EndLevelTransScript>();
+                    if (LevelTrans != null)
+                    {
+                        LevelTrans.ShowGameOverScreen();
+                    }
+                }
+
                 return FuelUsed;
             }
 

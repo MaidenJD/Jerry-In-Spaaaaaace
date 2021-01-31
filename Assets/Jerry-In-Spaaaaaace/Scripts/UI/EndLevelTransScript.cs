@@ -36,11 +36,12 @@ public class EndLevelTransScript : MonoBehaviour
     {
         spaceControls = new SpaceControls();
 
-        ShowStartScreen();
         //Invoke(nameof(HideStartScreen), ShowStartScreenTime);
 
         Station = GameObject.FindObjectOfType<SpaceStation>();
         Audio = GetComponent<AudioSource>();
+
+        ShowStartScreen();
     }
 
     //shows the level end screen
@@ -105,18 +106,22 @@ public class EndLevelTransScript : MonoBehaviour
 
     //Shows GameOver Screen
     public void ShowGameOverScreen(){
-        William.SetTrigger("OpenOver");
+        if (Shown == false) {
+            Shown = true;
 
-        var Clip = GetRandomClip(LossClips);
-        if (Clip != null)
-        {
-            Audio.PlayOneShot(Clip);
+            transform.Find("GameOverPanel").gameObject.SetActive(true);
+
+            var Clip = GetRandomClip(LossClips);
+            if (Clip != null)
+            {
+                Audio.PlayOneShot(Clip);
+            }
         }
     }
 
     //Hides GameOver Screen
     public void HideGameOverScreen(){
-        William.SetTrigger("CloseOver");
+        transform.Find("GameOverPanel").gameObject.SetActive(false);
     }
 
     private AudioClip GetRandomClip(AudioClip[] Clips)
