@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 521745409}
   - component: {fileID: 521745403}
   - component: {fileID: 1177612402586351537}
+  - component: {fileID: 2673855816160591170}
+  - component: {fileID: 8461026434185187103}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -144,6 +146,7 @@ MonoBehaviour:
   - {fileID: 943841372409212420}
   - {fileID: 4956893968340003696}
   - {fileID: 2958544693361570731}
+  InputEnabled: 1
   ThrusterStates: 
 --- !u!114 &4734891174551015392
 MonoBehaviour:
@@ -315,6 +318,42 @@ PolygonCollider2D:
       - {x: -0.7027173, y: -0.049972534}
       - {x: -0.71290207, y: -0.42572355}
       - {x: -0.29740155, y: -0.8840507}
+--- !u!114 &2673855816160591170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950826863725809501}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 130999609e4778b459068821ba0a509b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timer: 0
+  minWait: 5
+  maxWait: 55
+  nextTime: 0
+  clip: {fileID: 8300000, guid: fddab8ffd926ef3469fc1c5b9d1c3727, type: 3}
+  forceMultiplier: 0
+--- !u!114 &8461026434185187103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950826863725809501}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92a5aa9f22a970143a88cc3f7e1f5530, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timer: 0
+  minWait: 5
+  maxWait: 55
+  nextTime: 0
+  clip: {fileID: 8300000, guid: 88782197db3b3a3438947675ea374293, type: 3}
+  forceMultiplier: 200
 --- !u!1001 &1026146093901900696
 PrefabInstance:
   m_ObjectHideFlags: 0
